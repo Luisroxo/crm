@@ -73,6 +73,7 @@ model User {
   @@map("users")
 
   tarefasResponsavel Tarefa[] @relation("UserTarefas")
+  automationFlows   AutomationFlow[] @relation("UserAutomationFlows")
 }
 
 enum UserRole {
@@ -97,6 +98,7 @@ model Cliente {
   mensagens Mensagem[]
 
   tarefas   Tarefa[]
+  automationFlows AutomationFlow[] @relation("ClienteAutomationFlows")
 
   @@map("clientes")
 }
@@ -118,6 +120,7 @@ model Empresa {
   mensagens          Mensagem[]
 
   tarefas           Tarefa[]
+  automationFlows   AutomationFlow[] @relation("EmpresaAutomationFlows")
 
   @@map("empresas")
 }
@@ -161,6 +164,7 @@ model Lead {
   mensagens  Mensagem[]
 
   tarefas    Tarefa[]
+  automationFlows AutomationFlow[] @relation("LeadAutomationFlows")
 
   @@map("leads")
 }
@@ -178,4 +182,67 @@ model Movimentacao {
   etapaDestino    Etapa    @relation("EtapaDestino", fields: [etapaDestinoId], references: [id])
 
   @@map("movimentacoes")
+}
+
+
+model AutomationFlow {
+  id          String   @id @default(cuid())
+  nome        String
+  descricao   String?
+  ativo       Boolean  @default(true)
+  criadoEm    DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  triggers    AutomationTrigger[]
+  actions     AutomationAction[]
+
+  // Relacionamento opcional com entidades
+  leadId      String?
+  lead        Lead?    @relation("LeadAutomationFlows", fields: [leadId], references: [id])
+  clienteId   String?
+  cliente     Cliente? @relation("ClienteAutomationFlows", fields: [clienteId], references: [id])
+  empresaId   String?
+  empresa     Empresa? @relation("EmpresaAutomationFlows", fields: [empresaId], references: [id])
+  usuarioId   String?
+  usuario     User?    @relation("UserAutomationFlows", fields: [usuarioId], references: [id])
+
+  @@map("automation_flows")
+}
+
+model AutomationTrigger {
+  id          String   @id @default(cuid())
+  tipo        TriggerType
+  parametros  Json?
+  flowId      String
+  flow        AutomationFlow @relation(fields: [flowId], references: [id])
+  criadoEm    DateTime @default(now())
+
+  @@map("automation_triggers")
+}
+
+model AutomationAction {
+  id          String   @id @default(cuid())
+  tipo        ActionType
+  parametros  Json?
+  flowId      String
+  flow        AutomationFlow @relation(fields: [flowId], references: [id])
+  criadoEm    DateTime @default(now())
+
+  @@map("automation_actions")
+}
+
+enum TriggerType {
+  NOVO_LEAD
+  MUDANCA_ETAPA
+  NOVA_MENSAGEM
+  TAREFA_CONCLUIDA
+  CUSTOM
+}
+
+enum ActionType {
+  ENVIAR_MENSAGEM
+  CRIAR_TAREFA
+  MOVER_LEAD
+  NOTIFICAR_USUARIO
+  CUSTOM
 }

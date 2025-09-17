@@ -36,8 +36,10 @@
 - Documentação: ver `docs/gestao-tarefas.md`
 
 ## 6. Automação e Bots
-- Estrutura para fluxos automatizados
+- Estrutura para fluxos automatizados [CONCLUÍDO]
+- Endpoints REST CRUD para fluxos, triggers e actions [CONCLUÍDO]
 - Integração futura com bots de vendas
+- Documentação: ver `docs/automacao-bots.md`
 
 ## 7. Kit de IA (Futuro)
 - Respostas automáticas
