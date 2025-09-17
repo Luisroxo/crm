@@ -2,13 +2,25 @@
  * DTO para criação de um novo cliente.
  * Define os campos obrigatórios e opcionais para cadastro.
  */
+import { IsString, IsEmail, IsOptional, Length } from 'class-validator';
+
 export class CreateClienteDto {
   /** Nome completo do cliente */
+  @IsString({ message: 'O nome deve ser uma string.' })
+  @Length(3, 100, { message: 'O nome deve ter entre 3 e 100 caracteres.' })
   nome: string;
+
   /** E-mail do cliente */
+  @IsEmail({}, { message: 'E-mail inválido.' })
   email: string;
+
   /** Telefone do cliente (opcional) */
+  @IsOptional()
+  @IsString({ message: 'O telefone deve ser uma string.' })
   telefone?: string;
+
   /** Endereço do cliente (opcional) */
+  @IsOptional()
+  @IsString({ message: 'O endereço deve ser uma string.' })
   endereco?: string;
 }
