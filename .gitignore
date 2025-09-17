@@ -1,0 +1,27 @@
+# Node
+node_modules/
+.npm/
+.pnpm-store/
+
+# Builds
+.dist/
+dist/
+build/
+
+# Turbo cache
+.turbo/
+
+# Next.js
+.next/
+out/
+
+# Coverage
+coverage/
+
+# Env
+.env
+.env.*
+apps/*/.env*
+
+# OS
+.DS_Store
