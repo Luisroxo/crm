@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ["<rootDir>/apps/clientes"],
+  roots: ["<rootDir>"],
   testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"
