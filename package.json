@@ -9,6 +9,13 @@
     "test": "turbo run test"
   },
   "devDependencies": {
+    "@types/node": "^24.5.1",
+    "prisma": "6.16.2",
     "turbo": "^2.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "6.16.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
   }
 }
