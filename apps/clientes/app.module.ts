@@ -3,6 +3,8 @@ import { EmpresasController } from './empresas.controller';
 import { EmpresasService } from './empresas.service';
 import { MensagensController } from './mensagens.controller';
 import { MensagensService } from './mensagens.service';
+import { TarefasController } from './tarefas.controller';
+import { TarefasService } from './tarefas.service';
 
 /**
  * Módulo raiz do microserviço de Clientes.
@@ -10,7 +12,7 @@ import { MensagensService } from './mensagens.service';
  */
 @Module({
   imports: [],
-  controllers: [EmpresasController, MensagensController],
-  providers: [EmpresasService, MensagensService],
+  controllers: [EmpresasController, MensagensController, TarefasController],
+  providers: [EmpresasService, MensagensService, TarefasService],
 })
 export class AppModule {}

@@ -19,37 +19,44 @@
 - Leads podem ser vinculados a Empresa (PJ) ou Cliente (PF) [CONCLUÍDO]
 - Documentação detalhada: ver `docs/funil-vendas.md` e `docs/empresas.md`
 
-## 3. Comunicação Multicanal
-- Estrutura para registrar mensagens (WhatsApp, Instagram, etc)
+
+## 4. Comunicação Multicanal ✅
+- Estrutura para registrar mensagens (WhatsApp, Instagram, etc) [CONCLUÍDO]
+- Endpoints REST CRUD para mensagens [CONCLUÍDO]
+- Mensagens integradas a Cliente, Empresa e Lead [CONCLUÍDO]
 - Caixa de entrada unificada (MVP: apenas registro, integração futura)
+- Documentação: ver `docs/comunicacao-multicanal.md`
 
-## 4. Gestão de Tarefas
-- Criação e atribuição de tarefas
-- Relacionamento de tarefas com clientes e leads
-- Notificações básicas
+## 5. Gestão de Tarefas ✅
+- Criação e atribuição de tarefas [CONCLUÍDO]
+- Endpoints REST CRUD para tarefas [CONCLUÍDO]
+- Tarefas integradas a Cliente, Empresa, Lead e Usuário [CONCLUÍDO]
+- Relacionamento de tarefas com clientes, leads e empresas [CONCLUÍDO]
+- Notificações básicas (estrutura pronta)
+- Documentação: ver `docs/gestao-tarefas.md`
 
-## 5. Automação e Bots
+## 6. Automação e Bots
 - Estrutura para fluxos automatizados
 - Integração futura com bots de vendas
 
-## 6. Kit de IA (Futuro)
+## 7. Kit de IA (Futuro)
 - Respostas automáticas
 - Sugestão de mensagens
 - Preenchimento inteligente de perfis
 
-## 7. Integrações e APIs
+## 8. Integrações e APIs
 - API REST para frontend e integrações
 - Documentação da API
 
-## 8. Segurança e Autenticação
+## 9. Segurança e Autenticação
 - Autenticação de usuários
 - Controle de acesso por perfil
 
-## 9. Testes e Qualidade
+## 10. Testes e Qualidade
 - Testes automatizados (unitários e integração)
 - Cobertura mínima de 80%
 
-## 10. Deploy e Monitoramento
+## 11. Deploy e Monitoramento
 - Dockerização
 - Monitoramento básico (logs, uptime)
 

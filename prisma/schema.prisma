@@ -1,3 +1,30 @@
+model Tarefa {
+  id           String   @id @default(cuid())
+  titulo       String
+  descricao    String?
+  status       StatusTarefa @default(PENDENTE)
+  dataCriacao  DateTime @default(now())
+  dataLimite   DateTime?
+  dataConclusao DateTime?
+
+  clienteId    String?
+  cliente      Cliente? @relation(fields: [clienteId], references: [id])
+  empresaId    String?
+  empresa      Empresa? @relation(fields: [empresaId], references: [id])
+  leadId       String?
+  lead         Lead?    @relation(fields: [leadId], references: [id])
+  responsavelId String?
+  responsavel   User?   @relation("UserTarefas", fields: [responsavelId], references: [id])
+
+  @@map("tarefas")
+}
+
+enum StatusTarefa {
+  PENDENTE
+  EM_ANDAMENTO
+  CONCLUIDA
+  CANCELADA
+}
 model Mensagem {
   id           String   @id @default(cuid())
   conteudo     String
@@ -44,6 +71,8 @@ model User {
   updatedAt DateTime @updatedAt
 
   @@map("users")
+
+  tarefasResponsavel Tarefa[] @relation("UserTarefas")
 }
 
 enum UserRole {
@@ -67,6 +96,8 @@ model Cliente {
 
   mensagens Mensagem[]
 
+  tarefas   Tarefa[]
+
   @@map("clientes")
 }
 
@@ -85,6 +116,8 @@ model Empresa {
   leads              Lead[]
 
   mensagens          Mensagem[]
+
+  tarefas           Tarefa[]
 
   @@map("empresas")
 }
@@ -126,6 +159,8 @@ model Lead {
   cliente    Cliente? @relation(fields: [clienteId], references: [id])
 
   mensagens  Mensagem[]
+
+  tarefas    Tarefa[]
 
   @@map("leads")
 }
