@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { EmpresasController } from './empresas.controller';
+import { EmpresasService } from './empresas.service';
+import { MensagensController } from './mensagens.controller';
+import { MensagensService } from './mensagens.service';
 
 /**
  * Módulo raiz do microserviço de Clientes.
@@ -6,7 +10,7 @@ import { Module } from '@nestjs/common';
  */
 @Module({
   imports: [],
-  controllers: [],
-  providers: [],
+  controllers: [EmpresasController, MensagensController],
+  providers: [EmpresasService, MensagensService],
 })
 export class AppModule {}

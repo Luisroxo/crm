@@ -25,4 +25,9 @@ export class UpdateClienteDto {
   @IsOptional()
   @IsString({ message: 'O endereço deve ser uma string.' })
   endereco?: string;
+
+  /** ID da empresa vinculada (opcional) */
+  @IsOptional()
+  @IsString({ message: 'O ID da empresa deve ser uma string.' })
+  empresaId?: string;
 }

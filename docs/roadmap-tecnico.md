@@ -1,3 +1,4 @@
+
 # Roadmap Técnico CRM (Inspirado na Kommo)
 
 ## 1. Módulo de Clientes ✅
@@ -5,12 +6,18 @@
 - Histórico de interações [CONCLUÍDO]
 - Perfis completos com notas e tarefas [CONCLUÍDO]
 
+## 2. Empresas (PJ) ✅
+- Cadastro e gestão de empresas (PJ) [CONCLUÍDO]
+- Associação opcional de clientes (PF) a empresas [CONCLUÍDO]
+- Endpoints REST CRUD [CONCLUÍDO]
+- Documentação: ver `docs/empresas.md`
 
-## 2. Funil de Vendas
-- Estrutura de etapas do funil
-- Movimentação de leads entre etapas
-- Visualização do pipeline
-- Documentação detalhada: ver `docs/funil-vendas.md`
+## 3. Funil de Vendas ✅
+- Estrutura de etapas do funil [CONCLUÍDO]
+- Movimentação de leads entre etapas [CONCLUÍDO]
+- Visualização do pipeline [CONCLUÍDO]
+- Leads podem ser vinculados a Empresa (PJ) ou Cliente (PF) [CONCLUÍDO]
+- Documentação detalhada: ver `docs/funil-vendas.md` e `docs/empresas.md`
 
 ## 3. Comunicação Multicanal
 - Estrutura para registrar mensagens (WhatsApp, Instagram, etc)

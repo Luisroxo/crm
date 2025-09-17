@@ -8,11 +8,11 @@ export class CreateClienteDto {
   /** Nome completo do cliente */
   @IsString({ message: 'O nome deve ser uma string.' })
   @Length(3, 100, { message: 'O nome deve ter entre 3 e 100 caracteres.' })
-  nome: string;
+  nome!: string;
 
   /** E-mail do cliente */
   @IsEmail({}, { message: 'E-mail inválido.' })
-  email: string;
+  email!: string;
 
   /** Telefone do cliente (opcional) */
   @IsOptional()
@@ -23,4 +23,9 @@ export class CreateClienteDto {
   @IsOptional()
   @IsString({ message: 'O endereço deve ser uma string.' })
   endereco?: string;
+
+  /** ID da empresa vinculada (opcional) */
+  @IsOptional()
+  @IsString({ message: 'O ID da empresa deve ser uma string.' })
+  empresaId?: string;
 }

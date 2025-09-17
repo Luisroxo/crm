@@ -1,3 +1,28 @@
+model Mensagem {
+  id           String   @id @default(cuid())
+  conteudo     String
+  canal        Canal
+  dataEnvio    DateTime @default(now())
+  remetente    String?
+  destinatario String?
+
+  clienteId    String?
+  cliente      Cliente? @relation(fields: [clienteId], references: [id])
+  empresaId    String?
+  empresa      Empresa? @relation(fields: [empresaId], references: [id])
+  leadId       String?
+  lead         Lead?    @relation(fields: [leadId], references: [id])
+
+  @@map("mensagens")
+}
+
+enum Canal {
+  WHATSAPP
+  INSTAGRAM
+  EMAIL
+  SMS
+  OUTRO
+}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -35,5 +60,87 @@ model Cliente {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  empresaId String?
+  empresa   Empresa? @relation(fields: [empresaId], references: [id])
+
+  leads     Lead[]
+
+  mensagens Mensagem[]
+
   @@map("clientes")
+}
+
+model Empresa {
+  id                 String    @id @default(cuid())
+  razaoSocial        String
+  nomeFantasia       String?
+  cnpj               String   @unique
+  inscricaoEstadual  String?
+  telefone           String?
+  email              String?
+  endereco           String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  clientes           Cliente[]
+  leads              Lead[]
+
+  mensagens          Mensagem[]
+
+  @@map("empresas")
+}
+
+model Funil {
+  id        String   @id @default(cuid())
+  nome      String
+  criadoEm  DateTime @default(now())
+  etapas    Etapa[]
+
+  @@map("funis")
+}
+
+model Etapa {
+  id        String   @id @default(cuid())
+  nome      String
+  ordem     Int
+  funilId   String
+  funil     Funil    @relation(fields: [funilId], references: [id])
+  leads     Lead[]
+  movimentacoesOrigem   Movimentacao[] @relation("EtapaOrigem")
+  movimentacoesDestino  Movimentacao[] @relation("EtapaDestino")
+
+  @@map("etapas")
+}
+
+model Lead {
+  id         String   @id @default(cuid())
+  nome       String
+  contato    String?
+  criadoEm   DateTime @default(now())
+  etapaId    String
+  etapa      Etapa    @relation(fields: [etapaId], references: [id])
+  movimentacoes Movimentacao[]
+
+  empresaId  String?
+  empresa    Empresa? @relation(fields: [empresaId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation(fields: [clienteId], references: [id])
+
+  mensagens  Mensagem[]
+
+  @@map("leads")
+}
+
+model Movimentacao {
+  id              String   @id @default(cuid())
+  leadId          String
+  etapaOrigemId   String?
+  etapaDestinoId  String
+  dataMovimentacao DateTime @default(now())
+  observacao      String?
+
+  lead            Lead     @relation(fields: [leadId], references: [id])
+  etapaOrigem     Etapa?   @relation("EtapaOrigem", fields: [etapaOrigemId], references: [id])
+  etapaDestino    Etapa    @relation("EtapaDestino", fields: [etapaDestinoId], references: [id])
+
+  @@map("movimentacoes")
 }
