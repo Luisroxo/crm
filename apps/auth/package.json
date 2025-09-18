@@ -1,0 +1,15 @@
+{
+  "name": "auth",
+  "version": "0.1.0",
+  "description": "Microserviço de Autenticação do CRM",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "build": "nest build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

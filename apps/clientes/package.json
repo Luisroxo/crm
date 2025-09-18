@@ -1,0 +1,22 @@
+{
+  "name": "clientes",
+  "version": "0.1.0",
+  "description": "Microserviço de Clientes do CRM",
+  "main": "dist/main.js",
+  "scripts": {
+  "prestart": "cd ../.. && pnpm exec prisma generate --schema=prisma/schema.prisma",
+  "prestart:dev": "cd ../.. && pnpm exec prisma generate --schema=prisma/schema.prisma",
+  "prebuild": "cd ../.. && pnpm exec prisma generate --schema=prisma/schema.prisma",
+  "start": "nest start",
+  "start:dev": "nest start --watch",
+  "build": "nest build"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.2",
+    "@types/jest": "^30.0.0"
+  }
+}

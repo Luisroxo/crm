@@ -1,0 +1,330 @@
+model Tarefa {
+  id           String   @id @default(cuid())
+  titulo       String
+  descricao    String?
+  status       StatusTarefa @default(PENDENTE)
+  dataCriacao  DateTime @default(now())
+  dataLimite   DateTime?
+  dataConclusao DateTime?
+
+  clienteId    String?
+  cliente      Cliente? @relation(fields: [clienteId], references: [id])
+  empresaId    String?
+  empresa      Empresa? @relation(fields: [empresaId], references: [id])
+  leadId       String?
+  lead         Lead?    @relation(fields: [leadId], references: [id])
+  responsavelId String?
+  responsavel   User?   @relation("UserTarefas", fields: [responsavelId], references: [id])
+
+  @@map("tarefas")
+}
+
+enum StatusTarefa {
+  PENDENTE
+  EM_ANDAMENTO
+  CONCLUIDA
+  CANCELADA
+}
+model Mensagem {
+  id           String   @id @default(cuid())
+  conteudo     String
+  canal        Canal
+  dataEnvio    DateTime @default(now())
+  remetente    String?
+  destinatario String?
+
+  clienteId    String?
+  cliente      Cliente? @relation(fields: [clienteId], references: [id])
+  empresaId    String?
+  empresa      Empresa? @relation(fields: [empresaId], references: [id])
+  leadId       String?
+  lead         Lead?    @relation(fields: [leadId], references: [id])
+
+  iaSuggestions IaSuggestion[] @relation("MensagemIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("MensagemIaAutoReplies")
+
+  @@map("mensagens")
+}
+
+enum Canal {
+  WHATSAPP
+  INSTAGRAM
+  EMAIL
+  SMS
+  OUTRO
+}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  iaSuggestions IaSuggestion[] @relation("UserIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("UserIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("UserIaProfileCompletions")
+
+  @@map("users")
+
+  tarefasResponsavel Tarefa[] @relation("UserTarefas")
+  automationFlows   AutomationFlow[] @relation("UserAutomationFlows")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model Cliente {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String   @unique
+  telefone  String?
+  endereco  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  empresaId String?
+  empresa   Empresa? @relation(fields: [empresaId], references: [id])
+
+  leads     Lead[]
+
+  mensagens Mensagem[]
+
+  tarefas   Tarefa[]
+  automationFlows AutomationFlow[] @relation("ClienteAutomationFlows")
+
+  iaSuggestions IaSuggestion[] @relation("ClienteIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("ClienteIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("ClienteIaProfileCompletions")
+
+  @@map("clientes")
+}
+
+model Empresa {
+  id                 String    @id @default(cuid())
+  razaoSocial        String
+  nomeFantasia       String?
+  cnpj               String   @unique
+  inscricaoEstadual  String?
+  telefone           String?
+  email              String?
+  endereco           String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  clientes           Cliente[]
+  leads              Lead[]
+
+  mensagens          Mensagem[]
+
+  tarefas           Tarefa[]
+  automationFlows   AutomationFlow[] @relation("EmpresaAutomationFlows")
+
+  iaSuggestions IaSuggestion[] @relation("EmpresaIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("EmpresaIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("EmpresaIaProfileCompletions")
+
+  @@map("empresas")
+}
+
+model Funil {
+  id        String   @id @default(cuid())
+  nome      String
+  criadoEm  DateTime @default(now())
+  etapas    Etapa[]
+
+  @@map("funis")
+}
+
+model Etapa {
+  id        String   @id @default(cuid())
+  nome      String
+  ordem     Int
+  funilId   String
+  funil     Funil    @relation(fields: [funilId], references: [id])
+  leads     Lead[]
+  movimentacoesOrigem   Movimentacao[] @relation("EtapaOrigem")
+  movimentacoesDestino  Movimentacao[] @relation("EtapaDestino")
+
+  @@map("etapas")
+}
+
+model Lead {
+  id         String   @id @default(cuid())
+  nome       String
+  contato    String?
+  criadoEm   DateTime @default(now())
+  etapaId    String
+  etapa      Etapa    @relation(fields: [etapaId], references: [id])
+  movimentacoes Movimentacao[]
+
+  empresaId  String?
+  empresa    Empresa? @relation(fields: [empresaId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation(fields: [clienteId], references: [id])
+
+  mensagens  Mensagem[]
+
+  tarefas    Tarefa[]
+  automationFlows AutomationFlow[] @relation("LeadAutomationFlows")
+
+  iaSuggestions IaSuggestion[] @relation("LeadIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("LeadIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("LeadIaProfileCompletions")
+
+  @@map("leads")
+}
+
+model Movimentacao {
+  id              String   @id @default(cuid())
+  leadId          String
+  etapaOrigemId   String?
+  etapaDestinoId  String
+  dataMovimentacao DateTime @default(now())
+  observacao      String?
+
+  lead            Lead     @relation(fields: [leadId], references: [id])
+  etapaOrigem     Etapa?   @relation("EtapaOrigem", fields: [etapaOrigemId], references: [id])
+  etapaDestino    Etapa    @relation("EtapaDestino", fields: [etapaDestinoId], references: [id])
+
+  @@map("movimentacoes")
+}
+
+
+model AutomationFlow {
+  id          String   @id @default(cuid())
+  nome        String
+  descricao   String?
+  ativo       Boolean  @default(true)
+  criadoEm    DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  triggers    AutomationTrigger[]
+  actions     AutomationAction[]
+
+  // Relacionamento opcional com entidades
+  leadId      String?
+  lead        Lead?    @relation("LeadAutomationFlows", fields: [leadId], references: [id])
+  clienteId   String?
+  cliente     Cliente? @relation("ClienteAutomationFlows", fields: [clienteId], references: [id])
+  empresaId   String?
+  empresa     Empresa? @relation("EmpresaAutomationFlows", fields: [empresaId], references: [id])
+  usuarioId   String?
+  usuario     User?    @relation("UserAutomationFlows", fields: [usuarioId], references: [id])
+
+  @@map("automation_flows")
+}
+
+model AutomationTrigger {
+  id          String   @id @default(cuid())
+  tipo        TriggerType
+  parametros  Json?
+  flowId      String
+  flow        AutomationFlow @relation(fields: [flowId], references: [id])
+  criadoEm    DateTime @default(now())
+
+  @@map("automation_triggers")
+}
+
+model AutomationAction {
+  id          String   @id @default(cuid())
+  tipo        ActionType
+  parametros  Json?
+  flowId      String
+  flow        AutomationFlow @relation(fields: [flowId], references: [id])
+  criadoEm    DateTime @default(now())
+
+  @@map("automation_actions")
+}
+
+enum TriggerType {
+  NOVO_LEAD
+  MUDANCA_ETAPA
+  NOVA_MENSAGEM
+  TAREFA_CONCLUIDA
+  CUSTOM
+}
+
+enum ActionType {
+  ENVIAR_MENSAGEM
+  CRIAR_TAREFA
+  MOVER_LEAD
+  NOTIFICAR_USUARIO
+  CUSTOM
+}
+
+
+model IaSuggestion {
+  id         String   @id @default(cuid())
+  texto      String
+  contexto   String?
+  dataGerada DateTime @default(now())
+  usuarioId  String?
+  usuario    User?    @relation("UserIaSuggestions", fields: [usuarioId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation("ClienteIaSuggestions", fields: [clienteId], references: [id])
+  leadId     String?
+  lead       Lead?    @relation("LeadIaSuggestions", fields: [leadId], references: [id])
+  empresaId  String?
+  empresa    Empresa? @relation("EmpresaIaSuggestions", fields: [empresaId], references: [id])
+  mensagemId String?
+  mensagem   Mensagem? @relation("MensagemIaSuggestions", fields: [mensagemId], references: [id])
+
+  @@map("ia_suggestions")
+}
+
+model IaAutoReply {
+  id         String   @id @default(cuid())
+  texto      String
+  contexto   String?
+  dataGerada DateTime @default(now())
+  mensagemId String
+  mensagem   Mensagem @relation("MensagemIaAutoReplies", fields: [mensagemId], references: [id])
+  usuarioId  String?
+  usuario    User?    @relation("UserIaAutoReplies", fields: [usuarioId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation("ClienteIaAutoReplies", fields: [clienteId], references: [id])
+  leadId     String?
+  lead       Lead?    @relation("LeadIaAutoReplies", fields: [leadId], references: [id])
+  empresaId  String?
+  empresa    Empresa? @relation("EmpresaIaAutoReplies", fields: [empresaId], references: [id])
+
+  @@map("ia_auto_replies")
+}
+
+model IaProfileCompletion {
+  id         String   @id @default(cuid())
+  campo      String
+  valorSugerido String
+  status     ProfileCompletionStatus @default(PENDENTE)
+  dataGerada DateTime @default(now())
+  usuarioId  String?
+  usuario    User?    @relation("UserIaProfileCompletions", fields: [usuarioId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation("ClienteIaProfileCompletions", fields: [clienteId], references: [id])
+  leadId     String?
+  lead       Lead?    @relation("LeadIaProfileCompletions", fields: [leadId], references: [id])
+  empresaId  String?
+  empresa    Empresa? @relation("EmpresaIaProfileCompletions", fields: [empresaId], references: [id])
+
+  @@map("ia_profile_completions")
+}
+
+enum ProfileCompletionStatus {
+  PENDENTE
+  ACEITO
+  REJEITADO
+}

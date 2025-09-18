@@ -1,0 +1,22 @@
+# Global owners for the repository
+* @Luisroxo
+
+# Frontend specific files
+/apps/web/ @Luisroxo
+*.tsx @Luisroxo
+*.ts @Luisroxo
+
+# Backend specific files
+/apps/api/ @Luisroxo
+
+# Infrastructure and configuration
+/infra/ @Luisroxo
+docker-compose*.yml @Luisroxo
+/.github/ @Luisroxo
+
+# Database and schema
+/prisma/ @Luisroxo
+
+# Documentation
+/docs/ @Luisroxo
+README.md @Luisroxo
