@@ -19,6 +19,8 @@ import { IaProfileCompletionsService } from './ia-profile-completions.service';
 import { WebhooksController } from './webhooks.controller';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { ClientesController } from './clientes.controller';
+import { ClientesService } from './clientes.service';
 
 /**
  * Módulo raiz do microserviço de Clientes.
@@ -36,8 +38,9 @@ import { AuthService } from './auth.service';
     IaSuggestionsController,
     IaAutoRepliesController,
     IaProfileCompletionsController,
-  WebhooksController,
-  AuthController,
+    WebhooksController,
+    AuthController,
+    ClientesController,
   ],
   providers: [
     EmpresasService,
@@ -47,8 +50,9 @@ import { AuthService } from './auth.service';
     PrismaService,
     IaSuggestionsService,
     IaAutoRepliesService,
-  IaProfileCompletionsService,
-  AuthService,
+    IaProfileCompletionsService,
+    AuthService,
+    ClientesService,
   ],
 })
 export class AppModule {}
