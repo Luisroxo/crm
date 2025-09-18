@@ -14,4 +14,9 @@ export class TarefasController {
   create(@Body() tarefa: any) {
     return this.tarefasService.create(tarefa);
   }
+
+  @Get('/health')
+  health() {
+    return { status: 'ok' };
+  }
 }
