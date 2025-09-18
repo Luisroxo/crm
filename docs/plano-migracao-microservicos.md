@@ -56,27 +56,28 @@
 - Adicionar event bus para eventos críticos (ex: cliente criado).
 
 ## 4. Infraestrutura
-- Criar Dockerfile para cada serviço.
-- Atualizar docker-compose para rodar múltiplos containers.
+- [x] Criar Dockerfile para cada serviço
+- [x] Atualizar/gerar docker-compose.yml para orquestrar todos os containers (incluindo bancos, volumes e dependências)
 
 ## 5. Testes e Validação
-- Testar endpoints de cada serviço isoladamente.
-- Testar fluxos integrados (ex: login + consulta de clientes).
+- [ ] Implementar testes automatizados (unitários e/ou integração) para cada serviço
+- [ ] Garantir cobertura de testes dos fluxos principais (login, proxy, CRUD)
+- [ ] Documentar como rodar os testes
 
 ## 6. Escalabilidade e Observabilidade
-- Adicionar logs centralizados.
-- Implementar health checks.
+- [ ] Adicionar logs centralizados (ex: Winston, Log4js, ELK, Loki)
+- [ ] Implementar health checks em cada serviço (endpoint /health ou similar)
 
 ## 7. Refino e Otimização
-
+- [ ] Revisar código para melhorias de performance, segurança e organização
+- [ ] Remover código morto, duplicado ou desnecessário
+- [ ] Ajustar configs para produção (variáveis de ambiente, limites de recursos)
 
 ## 8. Implantação dos Bancos de Dados e Modelos
-- Criar bancos PostgreSQL separados para clientes, empresas, vendas/funil, tarefas
-- Criar banco MongoDB para comunicação
-- Criar Redis para automação/bots (fila/estado)
-- Gerar modelos (Prisma/Mongoose) em cada microserviço
-- Configurar variáveis de ambiente (.env) para cada serviço
-- Validar conexão e migração dos schemas
+- [x] Garantir que cada microserviço tem seu banco isolado (PostgreSQL, MongoDB, Redis conforme o caso) e volumes persistentes
+- [ ] Validar schemas e migrações (Prisma/Mongoose)
+- [ ] Configurar e testar variáveis de ambiente de conexão
+- [ ] Testar persistência e leitura real dos dados
 
 ## 9. Versionamento e Git
 - Commit de todas as alterações na branch dev
