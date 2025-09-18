@@ -40,6 +40,9 @@ model Mensagem {
   leadId       String?
   lead         Lead?    @relation(fields: [leadId], references: [id])
 
+  iaSuggestions IaSuggestion[] @relation("MensagemIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("MensagemIaAutoReplies")
+
   @@map("mensagens")
 }
 
@@ -69,6 +72,10 @@ model User {
   role      UserRole @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  iaSuggestions IaSuggestion[] @relation("UserIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("UserIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("UserIaProfileCompletions")
 
   @@map("users")
 
@@ -100,6 +107,10 @@ model Cliente {
   tarefas   Tarefa[]
   automationFlows AutomationFlow[] @relation("ClienteAutomationFlows")
 
+  iaSuggestions IaSuggestion[] @relation("ClienteIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("ClienteIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("ClienteIaProfileCompletions")
+
   @@map("clientes")
 }
 
@@ -121,6 +132,10 @@ model Empresa {
 
   tarefas           Tarefa[]
   automationFlows   AutomationFlow[] @relation("EmpresaAutomationFlows")
+
+  iaSuggestions IaSuggestion[] @relation("EmpresaIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("EmpresaIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("EmpresaIaProfileCompletions")
 
   @@map("empresas")
 }
@@ -165,6 +180,10 @@ model Lead {
 
   tarefas    Tarefa[]
   automationFlows AutomationFlow[] @relation("LeadAutomationFlows")
+
+  iaSuggestions IaSuggestion[] @relation("LeadIaSuggestions")
+  iaAutoReplies IaAutoReply[] @relation("LeadIaAutoReplies")
+  iaProfileCompletions IaProfileCompletion[] @relation("LeadIaProfileCompletions")
 
   @@map("leads")
 }
@@ -245,4 +264,67 @@ enum ActionType {
   MOVER_LEAD
   NOTIFICAR_USUARIO
   CUSTOM
+}
+
+
+model IaSuggestion {
+  id         String   @id @default(cuid())
+  texto      String
+  contexto   String?
+  dataGerada DateTime @default(now())
+  usuarioId  String?
+  usuario    User?    @relation("UserIaSuggestions", fields: [usuarioId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation("ClienteIaSuggestions", fields: [clienteId], references: [id])
+  leadId     String?
+  lead       Lead?    @relation("LeadIaSuggestions", fields: [leadId], references: [id])
+  empresaId  String?
+  empresa    Empresa? @relation("EmpresaIaSuggestions", fields: [empresaId], references: [id])
+  mensagemId String?
+  mensagem   Mensagem? @relation("MensagemIaSuggestions", fields: [mensagemId], references: [id])
+
+  @@map("ia_suggestions")
+}
+
+model IaAutoReply {
+  id         String   @id @default(cuid())
+  texto      String
+  contexto   String?
+  dataGerada DateTime @default(now())
+  mensagemId String
+  mensagem   Mensagem @relation("MensagemIaAutoReplies", fields: [mensagemId], references: [id])
+  usuarioId  String?
+  usuario    User?    @relation("UserIaAutoReplies", fields: [usuarioId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation("ClienteIaAutoReplies", fields: [clienteId], references: [id])
+  leadId     String?
+  lead       Lead?    @relation("LeadIaAutoReplies", fields: [leadId], references: [id])
+  empresaId  String?
+  empresa    Empresa? @relation("EmpresaIaAutoReplies", fields: [empresaId], references: [id])
+
+  @@map("ia_auto_replies")
+}
+
+model IaProfileCompletion {
+  id         String   @id @default(cuid())
+  campo      String
+  valorSugerido String
+  status     ProfileCompletionStatus @default(PENDENTE)
+  dataGerada DateTime @default(now())
+  usuarioId  String?
+  usuario    User?    @relation("UserIaProfileCompletions", fields: [usuarioId], references: [id])
+  clienteId  String?
+  cliente    Cliente? @relation("ClienteIaProfileCompletions", fields: [clienteId], references: [id])
+  leadId     String?
+  lead       Lead?    @relation("LeadIaProfileCompletions", fields: [leadId], references: [id])
+  empresaId  String?
+  empresa    Empresa? @relation("EmpresaIaProfileCompletions", fields: [empresaId], references: [id])
+
+  @@map("ia_profile_completions")
+}
+
+enum ProfileCompletionStatus {
+  PENDENTE
+  ACEITO
+  REJEITADO
 }

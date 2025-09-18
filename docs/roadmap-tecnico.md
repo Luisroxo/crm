@@ -1,4 +1,3 @@
-
 # Roadmap Técnico CRM (Inspirado na Kommo)
 
 ## 1. Módulo de Clientes ✅
@@ -41,10 +40,12 @@
 - Integração futura com bots de vendas
 - Documentação: ver `docs/automacao-bots.md`
 
-## 7. Kit de IA (Futuro)
-- Respostas automáticas
-- Sugestão de mensagens
-- Preenchimento inteligente de perfis
+## 7. Kit de IA ✅
+- Respostas automáticas [CONCLUÍDO]
+- Sugestão de mensagens [CONCLUÍDO]
+- Preenchimento inteligente de perfis [CONCLUÍDO]
+- Endpoints REST CRUD para IA [CONCLUÍDO]
+- Documentação: ver `docs/kit-ia.md`
 
 ## 8. Integrações e APIs
 - API REST para frontend e integrações

@@ -10,6 +10,12 @@ import { AutomationFlowsService } from './automation-flows.service';
 import { PrismaService } from './prisma.service';
 import { AutomationTriggersController } from './automation-triggers.controller';
 import { AutomationActionsController } from './automation-actions.controller';
+import { IaSuggestionsController } from './ia-suggestions.controller';
+import { IaSuggestionsService } from './ia-suggestions.service';
+import { IaAutoRepliesController } from './ia-auto-replies.controller';
+import { IaAutoRepliesService } from './ia-auto-replies.service';
+import { IaProfileCompletionsController } from './ia-profile-completions.controller';
+import { IaProfileCompletionsService } from './ia-profile-completions.service';
 
 /**
  * Módulo raiz do microserviço de Clientes.
@@ -17,7 +23,26 @@ import { AutomationActionsController } from './automation-actions.controller';
  */
 @Module({
   imports: [],
-  controllers: [EmpresasController, MensagensController, TarefasController, AutomationFlowsController, AutomationTriggersController, AutomationActionsController],
-  providers: [EmpresasService, MensagensService, TarefasService, AutomationFlowsService, PrismaService],
+  controllers: [
+    EmpresasController,
+    MensagensController,
+    TarefasController,
+    AutomationFlowsController,
+    AutomationTriggersController,
+    AutomationActionsController,
+    IaSuggestionsController,
+    IaAutoRepliesController,
+    IaProfileCompletionsController,
+  ],
+  providers: [
+    EmpresasService,
+    MensagensService,
+    TarefasService,
+    AutomationFlowsService,
+    PrismaService,
+    IaSuggestionsService,
+    IaAutoRepliesService,
+    IaProfileCompletionsService,
+  ],
 })
 export class AppModule {}
