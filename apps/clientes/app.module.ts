@@ -16,6 +16,7 @@ import { IaAutoRepliesController } from './ia-auto-replies.controller';
 import { IaAutoRepliesService } from './ia-auto-replies.service';
 import { IaProfileCompletionsController } from './ia-profile-completions.controller';
 import { IaProfileCompletionsService } from './ia-profile-completions.service';
+import { WebhooksController } from './webhooks.controller';
 
 /**
  * Módulo raiz do microserviço de Clientes.
@@ -33,6 +34,7 @@ import { IaProfileCompletionsService } from './ia-profile-completions.service';
     IaSuggestionsController,
     IaAutoRepliesController,
     IaProfileCompletionsController,
+    WebhooksController,
   ],
   providers: [
     EmpresasService,

@@ -47,9 +47,12 @@
 - Endpoints REST CRUD para IA [CONCLUÍDO]
 - Documentação: ver `docs/kit-ia.md`
 
-## 8. Integrações e APIs
-- API REST para frontend e integrações
-- Documentação da API
+## 8. Integrações e APIs ✅
+- API REST para frontend e integrações [CONCLUÍDO]
+- Webhooks para eventos do CRM [CONCLUÍDO]
+- Documentação da API e integrações [CONCLUÍDO]
+- Segurança e controle de acesso (JWT, escopos) [CONCLUÍDO]
+- Documentação: ver `docs/api.md` e `docs/api-planejamento.md`
 
 ## 9. Segurança e Autenticação
 - Autenticação de usuários
