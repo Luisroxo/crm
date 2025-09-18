@@ -9,7 +9,7 @@ export enum StatusTarefa {
 
 export class CreateTarefaDto {
   @IsString()
-  titulo: string;
+  titulo!: string;
 
   @IsOptional()
   @IsString()

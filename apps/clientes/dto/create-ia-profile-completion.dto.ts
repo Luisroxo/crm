@@ -8,10 +8,10 @@ export enum ProfileCompletionStatus {
 
 export class CreateIaProfileCompletionDto {
   @IsString()
-  campo: string;
+  campo!: string;
 
   @IsString()
-  valorSugerido: string;
+  valorSugerido!: string;
 
   @IsOptional()
   @IsEnum(ProfileCompletionStatus)

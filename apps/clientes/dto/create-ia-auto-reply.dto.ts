@@ -2,14 +2,14 @@ import { IsString, IsOptional } from 'class-validator';
 
 export class CreateIaAutoReplyDto {
   @IsString()
-  texto: string;
+  texto!: string;
 
   @IsOptional()
   @IsString()
   contexto?: string;
 
   @IsString()
-  mensagemId: string;
+  mensagemId!: string;
 
   @IsOptional()
   @IsString()

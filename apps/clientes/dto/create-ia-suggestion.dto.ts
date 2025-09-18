@@ -2,7 +2,7 @@ import { IsString, IsOptional } from 'class-validator';
 
 export class CreateIaSuggestionDto {
   @IsString()
-  texto: string;
+  texto!: string;
 
   @IsOptional()
   @IsString()
