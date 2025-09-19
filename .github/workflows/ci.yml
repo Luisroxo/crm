@@ -1,32 +1,383 @@
+  push-api:
+    name: Push Docker image - api
+    runs-on: ubuntu-latest
+    needs: build-api
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api:latest ./apps/api
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/api:latest
+
+  push-auth:
+    name: Push Docker image - auth
+    runs-on: ubuntu-latest
+    needs: build-auth
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/auth:latest ./apps/auth
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/auth:latest
+
+  push-automacao:
+    name: Push Docker image - automacao
+    runs-on: ubuntu-latest
+    needs: build-automacao
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/automacao:latest ./apps/automacao
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/automacao:latest
+
+  push-clientes:
+    name: Push Docker image - clientes
+    runs-on: ubuntu-latest
+    needs: build-clientes
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/clientes:latest ./apps/clientes
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/clientes:latest
+
+  push-comunicacao:
+    name: Push Docker image - comunicacao
+    runs-on: ubuntu-latest
+    needs: build-comunicacao
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/comunicacao:latest ./apps/comunicacao
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/comunicacao:latest
+
+  push-empresas:
+    name: Push Docker image - empresas
+    runs-on: ubuntu-latest
+    needs: build-empresas
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/empresas:latest ./apps/empresas
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/empresas:latest
+
+  push-gateway:
+    name: Push Docker image - gateway
+    runs-on: ubuntu-latest
+    needs: build-gateway
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/gateway:latest ./apps/gateway
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/gateway:latest
+
+  push-tarefas:
+    name: Push Docker image - tarefas
+    runs-on: ubuntu-latest
+    needs: build-tarefas
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tarefas:latest ./apps/tarefas
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/tarefas:latest
+
+  push-usuarios:
+    name: Push Docker image - usuarios
+    runs-on: ubuntu-latest
+    needs: build-usuarios
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/usuarios:latest ./apps/usuarios
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/usuarios:latest
+
+  push-vendas:
+    name: Push Docker image - vendas
+    runs-on: ubuntu-latest
+    needs: build-vendas
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/vendas:latest ./apps/vendas
+      - name: Push image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/vendas:latest
+  test-api:
+    name: Testes - api
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter api test
+
+  test-auth:
+    name: Testes - auth
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter auth test
+
+  test-automacao:
+    name: Testes - automacao
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter automacao test
+
+  test-clientes:
+    name: Testes - clientes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter clientes test
+
+  test-comunicacao:
+    name: Testes - comunicacao
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter comunicacao test
+
+  test-empresas:
+    name: Testes - empresas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter empresas test
+
+  test-gateway:
+    name: Testes - gateway
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter gateway test
+
+  test-tarefas:
+    name: Testes - tarefas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter tarefas test
+
+  test-usuarios:
+    name: Testes - usuarios
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter usuarios test
+
+  test-vendas:
+    name: Testes - vendas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter vendas test
 name: CI
 on:
   push:
     branches: [ main ]
   pull_request:
 jobs:
-  ci:
+  build-api:
+    name: Build Docker image - api
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Build Docker image (api)
+        run: docker build -t api:ci ./apps/api
 
-      - uses: pnpm/action-setup@v4
+  build-auth:
+    name: Build Docker image - auth
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (auth)
+        run: docker build -t auth:ci ./apps/auth
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
+  build-automacao:
+    name: Build Docker image - automacao
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (automacao)
+        run: docker build -t automacao:ci ./apps/automacao
 
-      - name: Cache Turbo
-        uses: actions/cache@v4
-        with:
-          path: |
-            .turbo
-          key: turbo-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            turbo-${{ runner.os }}-
+  build-clientes:
+    name: Build Docker image - clientes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (clientes)
+        run: docker build -t clientes:ci ./apps/clientes
 
-      - run: pnpm install --frozen-lockfile
+  build-comunicacao:
+    name: Build Docker image - comunicacao
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (comunicacao)
+        run: docker build -t comunicacao:ci ./apps/comunicacao
 
-      - run: pnpm lint
-      - run: pnpm test --if-present
-      - run: pnpm -w build
+  build-empresas:
+    name: Build Docker image - empresas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (empresas)
+        run: docker build -t empresas:ci ./apps/empresas
+
+  build-gateway:
+    name: Build Docker image - gateway
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (gateway)
+        run: docker build -t gateway:ci ./apps/gateway
+
+  build-tarefas:
+    name: Build Docker image - tarefas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (tarefas)
+        run: docker build -t tarefas:ci ./apps/tarefas
+
+  build-usuarios:
+    name: Build Docker image - usuarios
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (usuarios)
+        run: docker build -t usuarios:ci ./apps/usuarios
+
+  build-vendas:
+    name: Build Docker image - vendas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image (vendas)
+        run: docker build -t vendas:ci ./apps/vendas

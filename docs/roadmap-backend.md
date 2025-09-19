@@ -66,38 +66,38 @@
     - [x] Documentar variáveis e comandos de build/test
 
 ## 2. Orquestração com Docker Compose
-- [ ] Criar/atualizar `infra/docker/docker-compose.dev.yml` para:
+- [x] Criar/atualizar `infra/docker/docker-compose.dev.yml` para:
   - [x] Adicionar serviço Docker para cada microserviço
   - [x] Adicionar serviço Docker para cada banco (relacional e não relacional)
   - [x] Mapear variáveis de ambiente para cada container
   - [x] Configurar volumes para persistência dos bancos
   - [x] Expor portas necessárias
   - [x] Definir dependências entre serviços (depends_on)
-  - [ ] Testar `docker-compose up` localmente
-  - [ ] Documentar comandos de build, up, down e logs
+  - [x] Testar `docker-compose up` localmente
+  - [x] Documentar comandos de build, up, down e logs
 
 ## 3. Pipeline de Build e Deploy
-- [ ] Ajustar workflows do GitHub Actions para build/test de cada microserviço isolado
-  - [ ] Adicionar job para build de imagem Docker de cada serviço
-  - [ ] Adicionar job para rodar testes unitários/integrados
-  - [ ] Adicionar job para push de imagem (produção)
-  - [ ] Documentar fluxo de CI/CD
+- [x] Ajustar workflows do GitHub Actions para build/test de cada microserviço isolado
+  - [x] Adicionar job para build de imagem Docker de cada serviço
+  - [x] Adicionar job para rodar testes unitários/integrados
+  - [x] Adicionar job para push de imagem (produção)
+  - [x] Documentar fluxo de CI/CD
 
 ## 4. Testes e Qualidade
-- [ ] Testes unitários e de integração para cada microserviço (usando banco isolado)
-  - [ ] Garantir que todos os endpoints principais possuem teste
-  - [ ] Validar cobertura mínima (ex: 80%)
-- [ ] Testes end-to-end (opcional, via API gateway)
-  - [ ] Criar cenários críticos de E2E
-  - [ ] Documentar como rodar os testes E2E
+- [x] Testes unitários e de integração para cada microserviço (usando banco isolado)
+  - [x] Garantir que todos os endpoints principais possuem teste
+  - [x] Validar cobertura mínima (ex: 80%)
+- [x] Testes end-to-end (opcional, via API gateway)
+  - [x] Criar cenários críticos de E2E
+  - [x] Documentar como rodar os testes E2E
 
 ## 5. Documentação
-- [ ] Documentar arquitetura de isolamento, variáveis de ambiente e fluxo de deploy
-  - [ ] Diagrama de arquitetura atualizado
-  - [ ] Tabela de variáveis de ambiente por serviço
-  - [ ] Passo a passo de build, test e deploy
-- [ ] Atualizar README de cada microserviço
-  - [ ] Instruções de setup, build, test e uso em Docker
+- [x] Documentar arquitetura de isolamento, variáveis de ambiente e fluxo de deploy
+  - [x] Diagrama de arquitetura atualizado
+  - [x] Tabela de variáveis de ambiente por serviço
+  - [x] Passo a passo de build, test e deploy
+- [x] Atualizar README de cada microserviço
+  - [x] Instruções de setup, build, test e uso em Docker
 
 ---
 
