@@ -27,13 +27,28 @@ Comandos principais
 		```env
 		JWT_SECRET=um_segredo_forte_e_unico
 		```
-- Veja os arquivos `.env.example` de cada serviço para referência.
 
-Infra local
-- `docker compose -f infra/docker/docker-compose.dev.yml up -d`
+## Documentação principal
+- `docs/roadmap-tecnico.md` — Roadmap e status do projeto
+- `docs/plano-migracao-microservicos.md` — Checklist e migração
+- `docs/diagrama-arquitetura.md` — Diagrama da arquitetura
+- `docs/kubernetes.md` — Deploy e infraestrutura
 
-Estrutura
+> A documentação foi revisada e está centralizada nos arquivos essenciais acima.
+
+
+## Build e Deploy
+- Para build de produção:
+	```sh
+	pnpm -w build
+	```
+- Para subir infraestrutura local:
+	```sh
+	docker compose -f infra/docker/docker-compose.dev.yml up -d
+	```
+
+## Estrutura
 - apps/web — Next.js
 - apps/api — NestJS
 - prisma/schema.prisma — modelos
-- docs — arquitetura, ADRs, API, LGPD
+- docs — arquitetura, API, LGPD, roadmap, migração
