@@ -50,32 +50,54 @@ Sempre siga a seguinte rotina:
 ## 4. Telas e Funcionalidades Principais
 - [x] Dashboard (visão geral, métricas)
 - [ ] Gestão de Clientes (CRUD)
-	- [ ] Listagem de clientes
-		- [ ] Layout da tabela
-		- [ ] Paginação
-		- [ ] Busca por nome/email
-		- [ ] Filtros avançados
-		- [ ] Exibir status e ações rápidas
-	- [ ] Cadastro/edição de cliente
-		- [ ] Formulário de cliente
-		- [ ] Validação de campos obrigatórios
-		- [ ] Integração com API de criação/edição
-		- [ ] Feedback de sucesso/erro
-	- [ ] Visualização de detalhes
-		- [ ] Exibir dados básicos
-		- [ ] Exibir histórico de interações
-		- [ ] Ações rápidas (editar, excluir)
-	- [ ] Exclusão de cliente
-		- [ ] Confirmação de exclusão
-		- [ ] Integração com API de exclusão
-		- [ ] Atualizar lista após exclusão
+	- [x] Listagem de clientes
+		- [x] Layout da tabela
+		- [x] Paginação
+		- [x] Busca por nome/email
+		- [x] Filtros avançados
+		- [x] Exibir status e ações rápidas
+	- [x] Cadastro/edição de cliente
+		- [x] Formulário de cliente
+		- [x] Validação de campos obrigatórios
+		- [x] Integração com API de criação/edição
+		- [x] Feedback de sucesso/erro
+	- [x] Visualização de detalhes
+		- [x] Exibir dados básicos
+		- [x] Exibir histórico de interações
+		- [x] Ações rápidas (editar, excluir)
+	- [x] Exclusão de cliente
+		- [x] Confirmação de exclusão
+		- [x] Integração com API de exclusão
+		- [x] Atualizar lista após exclusão
 - [ ] Gestão de Empresas (CRUD)
 	- [ ] (Fluxo similar ao de clientes, pode ser feito em paralelo)
-- [ ] Funil de Vendas (pipeline, movimentação de leads)
-- [ ] Comunicação (mensagens, histórico)
-- [ ] Tarefas (criação, atribuição, status)
-- [ ] Automação/Bots (visualização de fluxos)
-- [ ] Perfil do usuário e configurações
+	- [x] Listagem de empresas
+		- [x] Layout da tabela
+	- [x] Paginação
+	- [x] Busca por nome/email
+	- [x] Filtros avançados
+	- [x] Exibir status e ações rápidas
+- [x] Funil de Vendas (pipeline, movimentação de leads)
+	- [x] Tela inicial do pipeline (colunas de etapas, cards de leads, visual Kommo)
+	- [x] Cards de lead com dados principais
+	- [x] Arrastar e soltar leads entre etapas
+- [x] Comunicação (mensagens, histórico)
+	- [x] Listagem de conversas
+	- [x] Visualização de mensagens
+	- [x] Ações rápidas na lista
+- [x] Tarefas (criação, atribuição, status)
+	- [x] Listagem de tarefas
+	- [x] Criação/atribuição de tarefa
+	- [x] Alteração de status e ações rápidas
+- [x] Automação/Bots (visualização de fluxos)
+	- [x] Listagem de fluxos de automação
+	- [x] Visualização de detalhes do fluxo
+	- [x] Ações rápidas na lista de fluxos
+ - [x] Perfil do usuário e configurações
+	 - [x] Tela de visualização do perfil
+		- [x] Edição de dados do perfil
+			- [x] Alteração de senha
+			- [x] Configurações de preferências
 
 ## 5. Integração com APIs
 - [ ] Criar camada de serviços para consumo das APIs internas (gateway)
