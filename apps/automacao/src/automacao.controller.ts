@@ -9,4 +9,8 @@ export class AutomacaoController {
   findAll() {
     return this.automacaoService.findAll();
   }
+  @Get('/health')
+  health() {
+    return { status: 'ok' };
+  }
 }

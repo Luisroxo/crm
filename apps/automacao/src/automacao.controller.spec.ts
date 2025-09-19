@@ -26,7 +26,7 @@ describe('AutomacaoController (e2e)', () => {
   });
 
   it('/automacao (POST) deve criar automacao', async () => {
-    const automacao = { /* campos mínimos */ };
+  const automacao = { };
     const res = await request(app.getHttpServer())
       .post('/automacao')
       .send(automacao);
