@@ -1,0 +1,11 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/.prisma/client-comunicacao"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_COMUNICACAO")
+}
+
+// Adicione seus models aqui

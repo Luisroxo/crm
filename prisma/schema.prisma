@@ -13,8 +13,7 @@ model Tarefa {
   empresa      Empresa? @relation(fields: [empresaId], references: [id])
   leadId       String?
   lead         Lead?    @relation(fields: [leadId], references: [id])
-  responsavelId String?
-  responsavel   User?   @relation("UserTarefas", fields: [responsavelId], references: [id])
+  // removido campo responsavelId e relação User
 
   @@map("tarefas")
 }
@@ -67,20 +66,21 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
+  nome      String
   email     String   @unique
-  name      String?
-  role      UserRole @default(USER)
+  senha     String
+  avatar    String?
+  cargo     String?
+  status    UserStatus @default(ATIVO)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  iaSuggestions IaSuggestion[] @relation("UserIaSuggestions")
-  iaAutoReplies IaAutoReply[] @relation("UserIaAutoReplies")
-  iaProfileCompletions IaProfileCompletion[] @relation("UserIaProfileCompletions")
-
   @@map("users")
+}
 
-  tarefasResponsavel Tarefa[] @relation("UserTarefas")
-  automationFlows   AutomationFlow[] @relation("UserAutomationFlows")
+enum UserStatus {
+  ATIVO
+  INATIVO
 }
 
 enum UserRole {
@@ -222,8 +222,7 @@ model AutomationFlow {
   cliente     Cliente? @relation("ClienteAutomationFlows", fields: [clienteId], references: [id])
   empresaId   String?
   empresa     Empresa? @relation("EmpresaAutomationFlows", fields: [empresaId], references: [id])
-  usuarioId   String?
-  usuario     User?    @relation("UserAutomationFlows", fields: [usuarioId], references: [id])
+  // removido campo usuarioId e relação User
 
   @@map("automation_flows")
 }
@@ -272,8 +271,7 @@ model IaSuggestion {
   texto      String
   contexto   String?
   dataGerada DateTime @default(now())
-  usuarioId  String?
-  usuario    User?    @relation("UserIaSuggestions", fields: [usuarioId], references: [id])
+  // removido campo usuarioId e relação User
   clienteId  String?
   cliente    Cliente? @relation("ClienteIaSuggestions", fields: [clienteId], references: [id])
   leadId     String?
@@ -293,8 +291,7 @@ model IaAutoReply {
   dataGerada DateTime @default(now())
   mensagemId String
   mensagem   Mensagem @relation("MensagemIaAutoReplies", fields: [mensagemId], references: [id])
-  usuarioId  String?
-  usuario    User?    @relation("UserIaAutoReplies", fields: [usuarioId], references: [id])
+  // removido campo usuarioId e relação User
   clienteId  String?
   cliente    Cliente? @relation("ClienteIaAutoReplies", fields: [clienteId], references: [id])
   leadId     String?
@@ -311,8 +308,7 @@ model IaProfileCompletion {
   valorSugerido String
   status     ProfileCompletionStatus @default(PENDENTE)
   dataGerada DateTime @default(now())
-  usuarioId  String?
-  usuario    User?    @relation("UserIaProfileCompletions", fields: [usuarioId], references: [id])
+  // removido campo usuarioId e relação User
   clienteId  String?
   cliente    Cliente? @relation("ClienteIaProfileCompletions", fields: [clienteId], references: [id])
   leadId     String?

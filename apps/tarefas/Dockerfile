@@ -2,14 +2,13 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY ../../.. .
-WORKDIR /app/apps/tarefas
-RUN npm install -g pnpm && pnpm install && pnpm build
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm --filter tarefas... build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
 COPY --from=builder /app/apps/tarefas/dist ./dist
-COPY --from=builder /app/apps/tarefas/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/tarefas/.env ./.env
-EXPOSE 3005
+EXPOSE 3008
 CMD ["node", "dist/main.js"]

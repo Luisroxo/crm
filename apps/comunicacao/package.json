@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "build": "nest build"
+  "build": "nest build"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -14,12 +14,18 @@
     "@nestjs/platform-express": "^10.0.0",
     "helmet": "^8.1.0",
     "nest-winston": "^1.10.2",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "@prisma/client": "6.16.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.2",
+    "@types/jest": "^30.0.0",
+    "supertest": "^6.3.4",
+    "@types/node": "^20.3.1"
   }
 }

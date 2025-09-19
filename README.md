@@ -47,6 +47,26 @@ Comandos principais
 	docker compose -f infra/docker/docker-compose.dev.yml up -d
 	```
 
+## Build Docker Compose (multi-serviços)
+
+- Para buildar e subir todos os microserviços e bancos:
+  ```sh
+  docker compose -f infra/docker/docker-compose.dev.yml up --build --remove-orphans
+  ```
+- Para parar e remover todos os containers:
+  ```sh
+  docker compose -f infra/docker/docker-compose.dev.yml down
+  ```
+- Para logs de todos os serviços:
+  ```sh
+  docker compose -f infra/docker/docker-compose.dev.yml logs -f
+  ```
+
+### Variáveis de ambiente (.env)
+- Cada microserviço possui um arquivo `.env.example` com o modelo das variáveis necessárias.
+- Copie e renomeie para `.env` antes de rodar localmente ou em produção.
+- O Dockerfile não copia `.env` automaticamente — é responsabilidade do dev/devops garantir o arquivo correto no ambiente.
+
 ## Estrutura
 - apps/web — Next.js
 - apps/api — NestJS

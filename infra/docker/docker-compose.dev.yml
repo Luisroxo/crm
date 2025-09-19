@@ -1,7 +1,177 @@
 version: '3.8'
 
-
 services:
+  vendas:
+    build:
+      context: ../../apps/vendas
+      dockerfile: Dockerfile
+    container_name: vendas
+    environment:
+      DATABASE_URL_VENDAS: postgres://vendas_user:vendas_pass@postgres-vendas:5432/vendas_db
+    ports:
+      - '3010:3000'
+    depends_on:
+      - postgres-vendas
+  usuarios:
+    build:
+      context: ../../apps/usuarios
+      dockerfile: Dockerfile
+    container_name: usuarios
+    environment:
+      DATABASE_URL_USUARIOS: postgres://usuarios_user:usuarios_pass@postgres-usuarios:5432/usuarios_db
+    ports:
+      - '3009:3000'
+    depends_on:
+      - postgres-usuarios
+  tarefas:
+    build:
+      context: ../../apps/tarefas
+      dockerfile: Dockerfile
+    container_name: tarefas
+    environment:
+      DATABASE_URL_TAREFAS: postgres://tarefas_user:tarefas_pass@postgres-tarefas:5432/tarefas_db
+    ports:
+      - '3008:3000'
+    depends_on:
+      - postgres-tarefas
+  empresas:
+    build:
+      context: ../../apps/empresas
+      dockerfile: Dockerfile
+    container_name: empresas
+    environment:
+      DATABASE_URL_EMPRESAS: postgres://empresas_user:empresas_pass@postgres-empresas:5432/empresas_db
+    ports:
+      - '3006:3000'
+    depends_on:
+      - postgres-empresas
+  comunicacao:
+    build:
+      context: ../../apps/comunicacao
+      dockerfile: Dockerfile
+    container_name: comunicacao
+    environment:
+      MONGODB_URL_COMUNICACAO: mongodb://comunicacao_user:comunicacao_pass@mongodb-comunicacao:27017/comunicacao_db?authSource=admin
+    ports:
+      - '3005:3000'
+    depends_on:
+      - mongodb-comunicacao
+  clientes:
+    build:
+      context: ../../apps/clientes
+      dockerfile: Dockerfile
+    container_name: clientes
+    environment:
+      DATABASE_URL_CLIENTES: postgres://clientes_user:clientes_pass@postgres-clientes:5432/clientes_db
+    ports:
+      - '3004:3000'
+    depends_on:
+      - postgres-clientes
+  automacao:
+    build:
+      context: ../../apps/automacao
+      dockerfile: Dockerfile
+    container_name: automacao
+    environment:
+      DATABASE_URL_AUTOMACAO: postgres://automacao_user:automacao_pass@postgres-automacao:5432/automacao_db
+      REDIS_URL_AUTOMACAO: redis://redis-automacao:6379
+    ports:
+      - '3003:3000'
+    depends_on:
+      - postgres-automacao
+      - redis-automacao
+  auth:
+    build:
+      context: ../../apps/auth
+      dockerfile: Dockerfile
+    container_name: auth
+    environment:
+      DATABASE_URL_AUTH: postgres://auth_user:auth_pass@postgres-auth:5432/auth_db
+    ports:
+      - '3002:3000'
+    depends_on:
+      - postgres-auth
+  api:
+    build:
+      context: ../../apps/api
+      dockerfile: Dockerfile
+    container_name: api
+    environment:
+      DATABASE_URL_API: postgres://api_user:api_pass@postgres-api:5432/api_db
+    ports:
+      - '3001:3000'
+    depends_on:
+      - postgres-api
+  gateway:
+    build:
+      context: ../../apps/gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    environment:
+      DATABASE_URL_GATEWAY: postgres://gateway_user:gateway_pass@postgres-gateway:5432/gateway_db
+    ports:
+      - '3007:3000'
+    depends_on:
+      - postgres-gateway
+
+  postgres-usuarios:
+    image: postgres:16
+    container_name: postgres-usuarios
+    environment:
+      POSTGRES_DB: usuarios_db
+      POSTGRES_USER: usuarios_user
+      POSTGRES_PASSWORD: usuarios_pass
+    ports:
+      - '5441:5432'
+    volumes:
+      - usuarios_pgdata:/var/lib/postgresql/data
+  postgres-api:
+    image: postgres:16
+    container_name: postgres-api
+    environment:
+      POSTGRES_DB: api_db
+      POSTGRES_USER: api_user
+      POSTGRES_PASSWORD: api_pass
+    ports:
+      - '5437:5432'
+    volumes:
+      - api_pgdata:/var/lib/postgresql/data
+
+  postgres-auth:
+    image: postgres:16
+    container_name: postgres-auth
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+    ports:
+      - '5438:5432'
+    volumes:
+      - auth_pgdata:/var/lib/postgresql/data
+
+  postgres-automacao:
+    image: postgres:16
+    container_name: postgres-automacao
+    environment:
+      POSTGRES_DB: automacao_db
+      POSTGRES_USER: automacao_user
+      POSTGRES_PASSWORD: automacao_pass
+    ports:
+      - '5439:5432'
+    volumes:
+      - automacao_pgdata:/var/lib/postgresql/data
+
+  postgres-gateway:
+    image: postgres:16
+    container_name: postgres-gateway
+    environment:
+      POSTGRES_DB: gateway_db
+      POSTGRES_USER: gateway_user
+      POSTGRES_PASSWORD: gateway_pass
+    ports:
+      - '5440:5432'
+    volumes:
+      - gateway_pgdata:/var/lib/postgresql/data
   postgres-clientes:
     image: postgres:16
     container_name: postgres-clientes
@@ -107,3 +277,8 @@ volumes:
   comunicacao_mongodata:
   automacao_redisdata:
   minio_data:
+  usuarios_pgdata:
+  api_pgdata:
+  auth_pgdata:
+  automacao_pgdata:
+  gateway_pgdata:
