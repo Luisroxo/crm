@@ -26,7 +26,7 @@
 - [x] Logout e expiração de sessão
 
 ## 3. Layout e Design System
-- [ ] Criar layout base (header, sidebar, footer)
+- [x] Criar layout base (header, sidebar, footer)
 - [ ] Definir paleta de cores, tipografia e espaçamentos
 - [ ] Criar biblioteca de componentes reutilizáveis (botão, input, modal, tabela, etc)
 - [ ] Responsividade e acessibilidade
