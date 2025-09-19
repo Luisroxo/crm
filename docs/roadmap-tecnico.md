@@ -54,17 +54,17 @@
 - Segurança e controle de acesso (JWT, escopos) [CONCLUÍDO]
 - Documentação: ver `docs/api.md` e `docs/api-planejamento.md`
 
-## 9. Segurança e Autenticação
-- Autenticação de usuários
-- Controle de acesso por perfil
+## 9. Segurança e Autenticação ✅
+- Autenticação de usuários [CONCLUÍDO]
+- Controle de acesso por perfil [CONCLUÍDO]
 
-## 10. Testes e Qualidade
-- Testes automatizados (unitários e integração)
-- Cobertura mínima de 80%
+## 10. Testes e Qualidade ✅
+- Testes automatizados (unitários e integração) [CONCLUÍDO]
+- Cobertura mínima de 80% [CONCLUÍDO]
 
-## 11. Deploy e Monitoramento
-- Dockerização
-- Monitoramento básico (logs, uptime)
+## 11. Deploy e Monitoramento ✅
+- Dockerização [CONCLUÍDO]
+- Monitoramento básico (logs, uptime) [CONCLUÍDO]
 
 ---
 
