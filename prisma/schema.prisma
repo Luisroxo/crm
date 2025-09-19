@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 model Tarefa {
   id           String   @id @default(cuid())
   titulo       String
@@ -42,57 +43,9 @@ model Mensagem {
 
   iaSuggestions IaSuggestion[] @relation("MensagemIaSuggestions")
   iaAutoReplies IaAutoReply[] @relation("MensagemIaAutoReplies")
-
-  @@map("mensagens")
-}
-
-enum Canal {
-  WHATSAPP
-  INSTAGRAM
-  EMAIL
-  SMS
-  OUTRO
-}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  role      UserRole @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  iaSuggestions IaSuggestion[] @relation("UserIaSuggestions")
-  iaAutoReplies IaAutoReply[] @relation("UserIaAutoReplies")
-  iaProfileCompletions IaProfileCompletion[] @relation("UserIaProfileCompletions")
-
-  @@map("users")
-
-  tarefasResponsavel Tarefa[] @relation("UserTarefas")
-  automationFlows   AutomationFlow[] @relation("UserAutomationFlows")
-}
-
-enum UserRole {
-  ADMIN
-  USER
-}
-
-model Cliente {
-  id        String   @id @default(cuid())
-  nome      String
-  email     String   @unique
-  telefone  String?
   endereco  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -327,4 +280,6 @@ enum ProfileCompletionStatus {
   PENDENTE
   ACEITO
   REJEITADO
+=======
+>>>>>>> 660f80d (chore: bootstrap monorepo — Next.js + NestJS + Prisma)
 }
