@@ -48,7 +48,7 @@ Sempre siga a seguinte rotina:
 - [x] Responsividade e acessibilidade
 
 ## 4. Telas e Funcionalidades Principais
-- [ ] Dashboard (visão geral, métricas)
+- [x] Dashboard (visão geral, métricas)
 - [ ] Gestão de Clientes (CRUD)
 	- [ ] Listagem de clientes
 		- [ ] Layout da tabela
