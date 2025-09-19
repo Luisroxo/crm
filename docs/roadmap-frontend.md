@@ -1,3 +1,19 @@
+
+## Rotina de Conclusão de Tarefas
+
+Sempre siga a seguinte rotina:
+
+1. **Sub-subtarefas** → após executar, marcar como concluída no roadmap.
+2. **Subtarefas** → só considerar concluída quando TODAS as sub-subtarefas estiverem feitas.
+3. **Tarefa principal** → só considerar concluída quando TODAS as subtarefas estiverem feitas.  
+	 - Executar:
+		 ```bash
+		 git add .
+		 git commit -m "feat: concluir [nome da tarefa]"
+		 git push
+		 ```
+4. Após cada conclusão, avance para a próxima tarefa automaticamente.
+
 # Roadmap Técnico — Frontend CRM (Next.js 14 + Tailwind)
 
 
