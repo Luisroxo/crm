@@ -1,3 +1,22 @@
+# Comandos Docker Compose (Desenvolvimento)
+
+Para orquestrar todos os microserviços e bancos em ambiente de desenvolvimento:
+
+```sh
+# Build e subida de todos os serviços
+docker-compose -f infra/docker/docker-compose.dev.yml up --build
+
+# Subir apenas um serviço específico (exemplo: usuarios)
+docker-compose -f infra/docker/docker-compose.dev.yml up --build usuarios
+
+# Parar todos os serviços
+docker-compose -f infra/docker/docker-compose.dev.yml down
+
+# Ver logs de um serviço
+docker-compose -f infra/docker/docker-compose.dev.yml logs -f usuarios
+```
+
+> Execute sempre os comandos a partir da raiz do projeto.
 # visao360-plus — Monorepo (MVP)
 
 Monorepo do CRM (MVP) com:

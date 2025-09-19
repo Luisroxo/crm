@@ -14,8 +14,8 @@ services:
       - postgres-vendas
   usuarios:
     build:
-      context: ../../apps/usuarios
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: apps/usuarios/Dockerfile
     container_name: usuarios
     environment:
       DATABASE_URL_USUARIOS: postgres://usuarios_user:usuarios_pass@postgres-usuarios:5432/usuarios_db

@@ -1,3 +1,22 @@
+# Build Docker (Monorepo)
+
+> Para buildar a imagem Docker deste serviço, execute o comando a partir da raiz do monorepo:
+
+```sh
+docker build -f apps/usuarios/Dockerfile -t usuarios .
+```
+
+> O contexto precisa ser a raiz do projeto para que todos os arquivos do monorepo estejam acessíveis ao Docker.
+
+No Docker Compose, garanta que o build context do serviço `usuarios` aponte para a raiz do monorepo e o Dockerfile correto:
+
+```yaml
+  usuarios:
+    build:
+      context: ../../  # raiz do monorepo
+      dockerfile: apps/usuarios/Dockerfile
+    ...
+```
 # Módulo Clientes
 
 Este módulo é responsável pelo gerenciamento de clientes no CRM, incluindo cadastro, listagem, atualização e remoção.

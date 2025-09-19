@@ -1,0 +1,18 @@
+# Ignora node_modules de todos os apps e libs
+**/node_modules
+!/node_modules
+
+# Ignora dist de todos os apps
+**/dist
+
+# Ignora arquivos temporários
+*.log
+*.tmp
+.DS_Store
+.env
+.env.*
+.git
+.gitignore
+.vscode
+.idea
+coverage
