@@ -9,4 +9,8 @@ export class EmpresasController {
   findAll() {
     return this.empresasService.findAll();
   }
+  @Get('/health')
+  health() {
+    return { status: 'ok' };
+  }
 }

@@ -38,6 +38,7 @@ services:
     depends_on:
       - postgres
 
+
   empresas:
     build:
       context: ./apps/empresas
@@ -48,6 +49,7 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+
 
   comunicacao:
     build:
@@ -60,6 +62,7 @@ services:
     depends_on:
       - mongodb
 
+
   tarefas:
     build:
       context: ./apps/tarefas
@@ -71,6 +74,7 @@ services:
     depends_on:
       - postgres
 
+
   automacao:
     build:
       context: ./apps/automacao
@@ -81,6 +85,7 @@ services:
     restart: unless-stopped
     depends_on:
       - redis
+
   clientes:
     build:
       context: ./apps/clientes
@@ -91,6 +96,7 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+
 volumes:
   pgdata:
   mongodata:
@@ -105,6 +111,7 @@ volumes:
       - ./apps/auth/.env
     restart: unless-stopped
 
+
   gateway:
     build:
       context: ./apps/gateway
@@ -113,3 +120,4 @@ volumes:
     env_file:
       - ./apps/gateway/.env
     restart: unless-stopped
+

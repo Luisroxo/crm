@@ -26,7 +26,7 @@ describe('ComunicacaoController (e2e)', () => {
   });
 
   it('/comunicacao (POST) deve criar comunicacao', async () => {
-    const comunicacao = { /* campos mínimos */ };
+  const comunicacao = { };
     const res = await request(app.getHttpServer())
       .post('/comunicacao')
       .send(comunicacao);

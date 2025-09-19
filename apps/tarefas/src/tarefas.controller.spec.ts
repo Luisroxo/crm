@@ -26,7 +26,7 @@ describe('TarefasController (e2e)', () => {
   });
 
   it('/tarefas (POST) deve criar tarefa', async () => {
-    const tarefa = { /* campos mínimos */ };
+  const tarefa = { };
     const res = await request(app.getHttpServer())
       .post('/tarefas')
       .send(tarefa);

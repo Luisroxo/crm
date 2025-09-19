@@ -26,7 +26,7 @@ describe('VendasController (e2e)', () => {
   });
 
   it('/vendas (POST) deve criar venda', async () => {
-    const venda = { /* campos mínimos */ };
+  const venda = { };
     const res = await request(app.getHttpServer())
       .post('/vendas')
       .send(venda);

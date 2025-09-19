@@ -9,4 +9,8 @@ export class VendasController {
   findAll() {
     return this.vendasService.findAll();
   }
+  @Get('/health')
+  health() {
+    return { status: 'ok' };
+  }
 }

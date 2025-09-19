@@ -12,6 +12,23 @@ Comandos principais
 - `pnpm dev` — executa web e api em paralelo
 - `pnpm -w build` — build dos pacotes/apps
 
+
+
+## Segurança dos Tokens JWT e APIs
+
+- **IMPORTANTE:**
+	- Defina a variável de ambiente `JWT_SECRET` em todos os serviços que geram ou validam JWT (ex: auth, clientes). Nunca deixe segredos hardcoded no código.
+	- Use HTTPS em produção (via proxy reverso, load balancer ou configuração cloud). Nunca exponha APIs sensíveis em HTTP puro.
+	- Todos os serviços já possuem:
+		- Validação obrigatória de `JWT_SECRET` no bootstrap
+		- Rate limiting global (protege endpoints como `/auth/login` contra brute force)
+		- CORS restritivo e headers de segurança (helmet)
+	- Exemplo de uso no Docker Compose ou ambiente cloud:
+		```env
+		JWT_SECRET=um_segredo_forte_e_unico
+		```
+- Veja os arquivos `.env.example` de cada serviço para referência.
+
 Infra local
 - `docker compose -f infra/docker/docker-compose.dev.yml up -d`
 

@@ -55,4 +55,9 @@ export class ClientesController {
   remove(@Param('id') id: string) {
     return this.clientesService.remove(+id);
   }
+
+  @Get('/health')
+  health() {
+    return { status: 'ok' };
+  }
 }

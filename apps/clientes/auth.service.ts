@@ -20,7 +20,7 @@ const usuarios = [
   },
 ];
 
-const JWT_SECRET = 'crm_secret'; // Em produção, use variável de ambiente
+const JWT_SECRET = process.env.JWT_SECRET || 'changeme_secret'; // Em produção, defina JWT_SECRET no ambiente
 
 @Injectable()
 export class AuthService {

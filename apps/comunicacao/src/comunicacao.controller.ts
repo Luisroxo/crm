@@ -9,4 +9,9 @@ export class ComunicacaoController {
   findAll() {
     return this.comunicacaoService.findAll();
   }
+  
+  @Get('/health')
+  health() {
+    return { status: 'ok' };
+  }
 }

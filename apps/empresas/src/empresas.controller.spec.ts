@@ -26,7 +26,7 @@ describe('EmpresasController (e2e)', () => {
   });
 
   it('/empresas (POST) deve criar empresa', async () => {
-    const empresa = { /* campos mínimos */ };
+  const empresa = { };
     const res = await request(app.getHttpServer())
       .post('/empresas')
       .send(empresa);
