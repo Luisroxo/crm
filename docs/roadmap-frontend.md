@@ -28,7 +28,7 @@
 ## 3. Layout e Design System
 - [x] Criar layout base (header, sidebar, footer)
 - [x] Definir paleta de cores, tipografia e espaçamentos
-- [ ] Criar biblioteca de componentes reutilizáveis (botão, input, modal, tabela, etc)
+- [x] Criar biblioteca de componentes reutilizáveis (botão, input, modal, tabela, etc)
 - [ ] Responsividade e acessibilidade
 
 ## 4. Telas e Funcionalidades Principais
