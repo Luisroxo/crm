@@ -1,9 +1,9 @@
 # Roadmap Técnico CRM (Inspirado na Kommo)
 
-## 1. Módulo de Clientes ✅
 - Cadastro de clientes (nome, contato, empresa, etc) [CONCLUÍDO]
 - Histórico de interações [CONCLUÍDO]
 - Perfis completos com notas e tarefas [CONCLUÍDO]
+- **Padrão de imports internos:** todos os imports entre arquivos do módulo clientes usam o alias absoluto `@/` (ex: `import { X } from '@/services/x.service'`).
 
 ## 2. Empresas (PJ) ✅
 - Cadastro e gestão de empresas (PJ) [CONCLUÍDO]

@@ -22,11 +22,11 @@
 - [x] Migrar testes para src/test/ (feito)
 - [x] Validar build e rodar testes unitários após migração dos testes (feito)
 - [x] Revisar/migrar utilitários/configs residuais para subpastas adequadas em src/ (feito - não há arquivos residuais)
-- [ ] Refatorar imports para paths absolutos (opcional)
-- [ ] Atualizar documentação interna sobre a nova estrutura
-- [ ] Remover arquivos/pastas obsoletos da raiz após validação final
+- [x] Atualizar documentação interna sobre a nova estrutura (feito)
+- [x] Remover arquivos/pastas obsoletos da raiz após validação final (feito)
+- [x] Refatorar imports para paths absolutos (@/) (feito em 10/10/2025)
 
 ## Observações
-- Controllers, DTOs, services, guards, testes e utilitários/configs já migrados e validados.
-- Próximos focos: documentação interna e limpeza final.
+- Controllers, DTOs, services, guards, testes, utilitários/configs, documentação e limpeza já migrados e validados.
+- Imports internos agora usam o padrão absoluto `@/` conforme tsconfig e jest.config.
 - Build e testes estáveis após ajustes.

@@ -1,5 +1,8 @@
 # Documentação da API Pública e Integrações
 
+## Observação sobre código-fonte
+Todos os imports internos dos módulos seguem o padrão absoluto `@/` (ex: `import { X } from '@/services/x.service'`). Isso facilita manutenção e refatoração.
+
 ## OpenAPI/Swagger
 A documentação dos endpoints REST do CRM será gerada automaticamente via Swagger, cobrindo:
 - Recursos: Clientes, Empresas, Leads, Mensagens, Tarefas, Funil, Kit de IA, Webhooks
