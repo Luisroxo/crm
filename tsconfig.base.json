@@ -10,10 +10,15 @@
     "emitDecoratorMetadata": true,
     "useDefineForClassFields": false,
     "paths": {
-    "@ui/*": ["packages/ui/*"],
-    "@config/*": ["packages/config/*"],
-  "@crm/auth": ["libs/auth/dist"],
-  "@crm/core": ["libs/core/dist"]
+      "@ui/*": ["packages/ui/*"],
+      "@config/*": ["packages/config/*"],
+  "@auth": ["packages/auth/dist/index"],
+  "@auth/*": ["packages/auth/dist/*"],
+      "@crm/auth": ["libs/auth/dist"],
+      "@crm/core": ["libs/core/dist"],
+      "@/*": [
+        "apps/usuarios/src/*"
+      ]
     }
   }
 }

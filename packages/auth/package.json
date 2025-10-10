@@ -1,0 +1,13 @@
+{
+  "name": "@crm-auth",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@nestjs/passport": "^11.0.5"
+  }
+}

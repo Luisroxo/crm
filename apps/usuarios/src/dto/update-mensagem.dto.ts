@@ -1,0 +1,2 @@
+// Copiado de clientes - ajuste conforme necessário
+export class UpdateMensagemDto {}

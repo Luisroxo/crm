@@ -3,7 +3,7 @@
 - Cadastro de clientes (nome, contato, empresa, etc) [CONCLUÍDO]
 - Histórico de interações [CONCLUÍDO]
 - Perfis completos com notas e tarefas [CONCLUÍDO]
-- **Padrão de imports internos:** todos os imports entre arquivos do módulo clientes usam o alias absoluto `@/` (ex: `import { X } from '@/services/x.service'`).
+- **Padrão de imports internos:** todos os imports entre arquivos dos módulos clientes e automacao usam o alias absoluto `@/` (ex: `import { X } from '@/services/x.service'`).
 
 ## 2. Empresas (PJ) ✅
 - Cadastro e gestão de empresas (PJ) [CONCLUÍDO]

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
-import { CreateIaAutoReplyDto } from '../dto/create-ia-auto-reply.dto';
-import { UpdateIaAutoReplyDto } from '../dto/update-ia-auto-reply.dto';
+import { PrismaService } from '@/prisma.service';
+import { CreateIaAutoReplyDto } from '@/dto/create-ia-auto-reply.dto';
+import { UpdateIaAutoReplyDto } from '@/dto/update-ia-auto-reply.dto';
 
 @Injectable()
 export class IaAutoRepliesService {

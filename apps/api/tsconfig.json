@@ -18,7 +18,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@crm/auth": ["../../libs/auth/dist"]
+      "@crm/auth": ["../../libs/auth/dist"],
+      "@/*": ["src/*"]
     }
   },
   "include": ["**/*.ts", "../../libs/*/src/**/*.ts"],

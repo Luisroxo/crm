@@ -1,6 +1,6 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { VendasService } from './vendas.service';
-import { JwtAuthGuard, RolesGuard, Roles } from '@crm/auth';
+import { JwtAuthGuard, RolesGuard, Roles } from '@auth';
 
 @Controller('vendas')
 @UseGuards(JwtAuthGuard, RolesGuard)

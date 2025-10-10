@@ -1,38 +1,59 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../app.module';
+import { ClientesController } from '@/clientes.controller';
+import { ClientesService } from '@/clientes.service';
+import { CreateClienteDto } from '@/dto/create-cliente.dto';
+import { UpdateClienteDto } from '@/dto/update-cliente.dto';
 
-describe('ClientesController (e2e)', () => {
-  let app: INestApplication;
+describe('ClientesController', () => {
+  let controller: ClientesController;
+  let service: ClientesService;
 
-  beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [ClientesController],
+      providers: [ClientesService],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    controller = module.get<ClientesController>(ClientesController);
+    service = module.get<ClientesService>(ClientesService);
   });
 
-  afterAll(async () => {
-    await app.close();
+  it('deve criar um cliente', async () => {
+    const dto: CreateClienteDto = { nome: 'João', email: 'joao@email.com' };
+    const result = await controller.create(dto);
+    expect(result).toHaveProperty('id');
+    expect(result.nome).toBe(dto.nome);
+    expect(result.email).toBe(dto.email);
   });
 
-  it('/clientes (GET) deve retornar array', async () => {
-    const res = await request(app.getHttpServer()).get('/clientes');
-    expect(res.status).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
+  it('deve listar todos os clientes', async () => {
+    await controller.create({ nome: 'Maria', email: 'maria@email.com' });
+    const clientes = await controller.findAll();
+    expect(Array.isArray(clientes)).toBe(true);
+    expect(clientes.length).toBeGreaterThan(0);
   });
 
-  it('/clientes (POST) deve criar cliente', async () => {
-    const cliente = { nome: 'Teste', email: 'teste@crm.com' };
-    const res = await request(app.getHttpServer())
-      .post('/clientes')
-      .send(cliente);
-    expect(res.status).toBe(201);
-    expect(res.body).toHaveProperty('id');
-    expect(res.body.nome).toBe(cliente.nome);
-    expect(res.body.email).toBe(cliente.email);
+  it('deve buscar um cliente por id', async () => {
+    const cliente = await controller.create({ nome: 'Carlos', email: 'carlos@email.com' });
+    const encontrado = await controller.findOne(cliente.id.toString());
+    expect(encontrado).toEqual(cliente);
+  });
+
+  it('deve atualizar um cliente', async () => {
+    const cliente = await controller.create({ nome: 'Ana', email: 'ana@email.com' });
+    const dto: UpdateClienteDto = { nome: 'Ana Paula' };
+    const atualizado = await controller.update(cliente.id.toString(), dto);
+    expect(atualizado).not.toBeNull();
+    if (atualizado) {
+      expect(atualizado.nome).toBe('Ana Paula');
+    }
+  });
+
+  it('deve remover um cliente', async () => {
+    const cliente = await controller.create({ nome: 'Pedro', email: 'pedro@email.com' });
+    const removido = await controller.remove(cliente.id.toString());
+    expect(removido).toEqual(cliente);
+    const encontrado = await controller.findOne(cliente.id.toString());
+    expect(encontrado).toBeUndefined();
   });
 });

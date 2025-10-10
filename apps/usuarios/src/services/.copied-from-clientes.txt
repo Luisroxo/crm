@@ -1,0 +1,1 @@
+Services copiados de clientes para padronização inicial. Remover ou ajustar conforme domínio de usuarios.

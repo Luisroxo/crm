@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsEnum } from 'class-validator';
-import { Canal } from './create-mensagem.dto';
+import { Canal } from '@/dto/create-mensagem.dto';
 
 export class UpdateMensagemDto {
   @IsOptional()

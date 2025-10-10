@@ -1,6 +1,6 @@
 import '../src/otel-bootstrap';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from '@/app.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import helmet from 'helmet';

@@ -32,7 +32,7 @@
 - OpenAPI/Swagger gerado automaticamente.
 - Exemplos de payloads e fluxos de integração.
 - Documentação publicada em `docs/api.md` e via Swagger UI.
-- **Nota:** O código dos módulos utiliza imports absolutos internos via `@/` para facilitar manutenção.
+- **Nota:** O código dos módulos (incluindo automacao) utiliza imports absolutos internos via `@/` para facilitar manutenção.
 
 ---
 

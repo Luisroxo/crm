@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsEnum, IsDateString } from 'class-validator';
-import { StatusTarefa } from './create-tarefa.dto';
+import { StatusTarefa } from '@/dto/create-tarefa.dto';
 
 export class UpdateTarefaDto {
   @IsOptional()
