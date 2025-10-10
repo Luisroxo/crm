@@ -2,6 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './app.module';
+import { JwtAuthGuard, RolesGuard } from '@crm/auth';
+
+
+beforeAll(() => {
+  process.env.JWT_SECRET = 'test-secret';
+});
 
 describe('TarefasController (e2e)', () => {
   let app: INestApplication;
@@ -9,7 +15,12 @@ describe('TarefasController (e2e)', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideGuard(JwtAuthGuard)
+      .useValue({ canActivate: () => true })
+      .overrideGuard(RolesGuard)
+      .useValue({ canActivate: () => true })
+      .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();

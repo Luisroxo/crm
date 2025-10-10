@@ -1,13 +1,16 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
+  "outDir": "dist",
+  "rootDir": "../../",
     "types": ["node"],
     "module": "CommonJS",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "paths": {
+  "@crm/auth": ["../../libs/auth/dist"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../../libs/*/src/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "test", "tests", "e2e"]
 }

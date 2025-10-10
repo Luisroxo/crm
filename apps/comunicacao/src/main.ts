@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import helmet from 'helmet';
+import { AllExceptionsFilter } from '@crm/core';
+import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 /**
@@ -13,8 +15,7 @@ async function bootstrap() {
   const requiredEnvs = ['JWT_SECRET', 'DATABASE_URL', 'PORT'];
   const missing = requiredEnvs.filter((v) => !process.env[v]);
   if (missing.length > 0) {
-    // eslint-disable-next-line no-console
-    console.error(`FATAL: Variáveis obrigatórias não definidas: ${missing.join(', ')}`);
+    Logger.error(`FATAL: Variáveis obrigatórias não definidas: ${missing.join(', ')}`);
     process.exit(1);
   }
   const app = await NestFactory.create(AppModule, {
@@ -29,6 +30,7 @@ async function bootstrap() {
       ],
     }),
   });
+  app.useGlobalFilters(new AllExceptionsFilter());
   app.enableCors({
     origin: [/localhost/, /127.0.0.1/],
     credentials: true,

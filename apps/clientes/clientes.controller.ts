@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { ClientesService } from './clientes.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
+import { JwtAuthGuard, RolesGuard, Roles } from '@crm/auth';
 
 /**
  * Controller responsável por expor as rotas HTTP para operações de clientes.
  * Permite criar, listar, buscar, atualizar e remover clientes.
  */
 @Controller('clientes')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ClientesController {
   constructor(private readonly clientesService: ClientesService) {}
 
@@ -16,6 +18,7 @@ export class ClientesController {
    * @param createClienteDto Dados para criação do cliente
    */
   @Post()
+  @Roles('admin')
   create(@Body() createClienteDto: CreateClienteDto) {
     return this.clientesService.create(createClienteDto);
   }
@@ -24,6 +27,7 @@ export class ClientesController {
    * Lista todos os clientes cadastrados.
    */
   @Get()
+  @Roles('admin', 'user')
   findAll() {
     return this.clientesService.findAll();
   }
@@ -33,6 +37,7 @@ export class ClientesController {
    * @param id Identificador do cliente
    */
   @Get(':id')
+  @Roles('admin', 'user')
   findOne(@Param('id') id: string) {
     return this.clientesService.findOne(+id);
   }

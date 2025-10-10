@@ -5,7 +5,8 @@
     "rootDir": "src",
     "declaration": true,
     "composite": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "commonjs"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "node_modules", "dist"]

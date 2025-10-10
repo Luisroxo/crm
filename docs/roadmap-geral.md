@@ -1,5 +1,3 @@
-
-
 # Roadmap Técnico – visao360-plus CRM
 
 ## Concluído
@@ -12,19 +10,30 @@
 - Correções de dependências, tsconfig, package.json
 - Testes automatizados básicos (controllers/services principais)
 - Autenticação JWT e RBAC centralizada (todos os serviços NestJS)
+- Documentar endpoints REST (Swagger/OpenAPI) em todos os serviços backend
+- **Revisão e padronização dos testes e2e** (mock dos guards JwtAuthGuard/RolesGuard aplicado em todos os controllers protegidos)
 
-## Em andamento
-- Expansão de testes: integração, e2e, casos de erro
+## Em andamento / Prioridades
+- [ ] Padronizar tratamento de erros e logs _(prioridade: ALTA)_
+- [ ] Automatizar deploy (CI/CD) _(prioridade: ALTA)_
+- [ ] Adicionar monitoramento e observabilidade _(prioridade: MÉDIA)_
+- [ ] Evoluir integrações entre microserviços _(prioridade: MÉDIA)_
+- [ ] Implementar scripts de seed e fixtures _(prioridade: MÉDIA)_
+- [ ] Revisar e atualizar documentação técnica _(prioridade: MÉDIA)_
 
-## Próximos Passos (prioridade)
-1. Documentar endpoints REST (OpenAPI/Swagger)
-2. Padronizar tratamento de erros e logs (Winston)
-3. Automatizar deploy (CI/CD)
-4. Adicionar monitoramento e observabilidade (OpenTelemetry, Prometheus, Grafana)
-5. Evoluir integrações entre microserviços (RabbitMQ, eventos)
-6. Implementar scripts de seed e fixtures
-7. Revisar e atualizar documentação técnica
+## Notas recentes
+- Todos os controllers protegidos por guards possuem testes e2e com mock de autenticação, conforme padrão documentado.
+- Pronto para avançar para logs, CI/CD, observabilidade e integrações.
 
+## Tarefas em aberto (detalhado)
+- Padronizar tratamento de erros e logs (Winston, filtros de exceção, logs estruturados)
+- Automatizar deploy (CI/CD) com pipelines (GitHub Actions, Docker, cloud)
+- Adicionar monitoramento e observabilidade (OpenTelemetry, Prometheus, Grafana)
+- Evoluir integrações entre microserviços (eventos, filas, RabbitMQ)
+- Implementar scripts de seed e fixtures para bancos de dados
+- Revisar e atualizar documentação técnica (onboarding, arquitetura, exemplos)
+
+---
 
 ## 🧩 Fase 1 – Preparação e Estrutura
 🎯 **Objetivo:** Consolidar a base monorepo, padrões de código e ambiente de desenvolvimento.
@@ -179,3 +188,33 @@
 - Mobile app (React Native) com foco em CRM e tarefas do BPMS
 - Assistente IA (Oráculo): resumo de status de clientes, follow-ups e próximos passos
 - Plug-in WhatsApp / Telegram / e-mail nativo: automatizar comunicações
+
+---
+
+# Padrão de Mock de Guards em Testes e2e (NestJS)
+
+Para garantir que os testes e2e dos controllers não dependam de autenticação real, utilize o padrão de mock dos guards `JwtAuthGuard` e `RolesGuard` nos arquivos `*.controller.spec.ts` de cada app backend.
+
+**Exemplo de implementação:**
+
+```ts
+import { JwtAuthGuard, RolesGuard } from '@crm/auth';
+// ...existing code...
+beforeAll(async () => {
+  const moduleFixture: TestingModule = await Test.createTestingModule({
+    imports: [AppModule],
+  })
+    .overrideGuard(JwtAuthGuard)
+    .useValue({ canActivate: () => true })
+    .overrideGuard(RolesGuard)
+    .useValue({ canActivate: () => true })
+    .compile();
+  app = moduleFixture.createNestApplication();
+  await app.init();
+});
+```
+
+**Recomendação:**
+- Sempre mockar os guards em testes e2e de controllers para isolar a lógica de negócio.
+- Replicar esse padrão em todos os serviços NestJS que usam autenticação/roles.
+- Não remover testes de autenticação real dos módulos de Auth (testar fluxo real no próprio módulo de auth).

@@ -16,6 +16,10 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@crm/auth": ["../../libs/auth/dist"]
+    }
+  },
+  "include": ["**/*.ts", "../../libs/*/src/**/*.ts"],
 }

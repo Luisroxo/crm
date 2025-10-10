@@ -9,25 +9,34 @@ import { UpdateClienteDto } from './dto/update-cliente.dto';
  */
 @Injectable()
 export class ClientesService {
-  // Implemente os métodos abaixo usando banco de dados real
+  private clientes: any[] = [];
+  private idSeq = 1;
 
   create(createClienteDto: CreateClienteDto) {
-    throw new Error('Não implementado: integrar com banco de dados');
+    const cliente = { id: this.idSeq++, ...createClienteDto };
+    this.clientes.push(cliente);
+    return cliente;
   }
 
   findAll() {
-    throw new Error('Não implementado: integrar com banco de dados');
+    return this.clientes;
   }
 
   findOne(id: number) {
-    throw new Error('Não implementado: integrar com banco de dados');
+    return this.clientes.find(c => c.id === Number(id));
   }
 
   update(id: number, updateClienteDto: UpdateClienteDto) {
-    throw new Error('Não implementado: integrar com banco de dados');
+    const cliente = this.findOne(id);
+    if (!cliente) return null;
+    Object.assign(cliente, updateClienteDto);
+    return cliente;
   }
 
   remove(id: number) {
-    throw new Error('Não implementado: integrar com banco de dados');
+    const idx = this.clientes.findIndex(c => c.id === Number(id));
+    if (idx === -1) return null;
+    const [removido] = this.clientes.splice(idx, 1);
+    return removido;
   }
 }
