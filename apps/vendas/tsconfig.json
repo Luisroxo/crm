@@ -1,11 +1,13 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-  "outDir": "dist",
-  "rootDir": "src",
-  "types": ["node"],
-  "module": "CommonJS"
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"],
+    "module": "CommonJS",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "test", "tests", "e2e"]
 }

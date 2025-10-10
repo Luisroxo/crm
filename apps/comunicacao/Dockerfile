@@ -4,7 +4,9 @@ WORKDIR /app
 COPY ../../.. .
 RUN npm install -g pnpm
 RUN pnpm install
-RUN pnpm --filter comunicacao... build
+RUN pnpm install --filter ./apps/comunicacao...
+RUN pnpm exec prisma generate --schema=prisma/schema.prisma
+RUN pnpm build
 
 FROM node:20-alpine AS runner
 WORKDIR /app

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useMemo } from "react";
 import LayoutBase from "@/components/LayoutBase";
 

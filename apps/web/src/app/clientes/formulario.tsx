@@ -60,8 +60,12 @@ export default function ClienteFormPage() {
         site: "",
         endereco: "",
       });
-    } catch (err: any) {
-      setMensagem(err.message || "Erro ao salvar cliente");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMensagem(err.message || "Erro ao salvar cliente");
+      } else {
+        setMensagem("Erro ao salvar cliente");
+      }
     } finally {
       setLoading(false);
     }

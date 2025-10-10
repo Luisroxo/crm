@@ -1,31 +1,27 @@
 {
   "name": "auth",
   "version": "0.1.0",
-  "description": "Microserviço de Autenticação do CRM",
+  "description": "Serviço de autenticação NestJS",
   "main": "dist/main.js",
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch",
-  "build": "nest build"
+    "build": "nest build"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^10.0.0",
-    "@nestjs/platform-express": "^10.0.0",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/passport": "^11.0.5",
-    "jsonwebtoken": "^9.0.2",
-    "passport": "^0.7.0",
+    "@nestjs/platform-express": "^10.0.0",
     "passport-jwt": "^4.0.1",
-    "bcryptjs": "^2.4.3",
-    "helmet": "^8.1.0",
-    "express-rate-limit": "^6.7.0",
-    "@prisma/client": "6.16.2"
+    "reflect-metadata": "^0.2.0"
   },
   "devDependencies": {
-  "prisma": "6.16.2",
-  "@types/passport-jwt": "^4.0.1",
-  "typescript": "^5.0.0",
-  "@nestjs/cli": "^10.0.0"
+    "@nestjs/cli": "^10.0.0",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
+    "typescript": "^5.0.0"
   }
 }

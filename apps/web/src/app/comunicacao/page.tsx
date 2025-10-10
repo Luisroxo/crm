@@ -1,4 +1,6 @@
+"use client";
 import React, { useState } from 'react';
+import Image from "next/image";
 
 const conversasMock = [
   {
@@ -40,7 +42,7 @@ export default function ComunicacaoPage() {
               className={`group flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 ${conversaSelecionada.id === c.id ? 'bg-primary-50' : ''}`}
               onClick={() => setConversaSelecionada(c)}
             >
-              <img src={c.avatar} alt={c.nome} className="w-10 h-10 rounded-full object-cover" />
+              <Image src={c.avatar} alt={c.nome} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-gray-900 truncate">{c.nome}</div>
                 <div className="text-xs text-gray-500 truncate">Último contato: {c.ultimoContato}</div>
@@ -58,7 +60,7 @@ export default function ComunicacaoPage() {
       {/* Histórico de mensagens */}
       <section className="flex-1 bg-white rounded-lg shadow flex flex-col">
         <header className="p-4 border-b font-semibold text-gray-700 flex items-center gap-3">
-          <img src={conversaSelecionada.avatar} alt={conversaSelecionada.nome} className="w-8 h-8 rounded-full object-cover" />
+          <Image src={conversaSelecionada.avatar} alt={conversaSelecionada.nome} width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
           <span>{conversaSelecionada.nome}</span>
         </header>
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2">

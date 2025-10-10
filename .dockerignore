@@ -1,6 +1,7 @@
-# Ignora node_modules de todos os apps e libs
+
+# Ignora node_modules de todos os apps, libs e raiz
+node_modules
 **/node_modules
-!/node_modules
 
 # Ignora dist de todos os apps
 **/dist

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import LayoutBase from "@/components/LayoutBase";
 
@@ -40,8 +41,12 @@ export default function ClienteDetalhePage() {
       setTimeout(() => {
         router.push("/clientes");
       }, 1200);
-    } catch (err: any) {
-      setMensagem(err.message || "Erro ao excluir cliente");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMensagem(err.message || "Erro ao excluir cliente");
+      } else {
+        setMensagem("Erro ao excluir cliente");
+      }
     }
   }
   function cancelarExclusao() {
@@ -55,7 +60,7 @@ export default function ClienteDetalhePage() {
           <div className="mb-4 text-green-600 font-medium">{mensagem}</div>
         )}
         <div className="flex items-center gap-4 mb-6">
-          <img src={cliente.avatar} alt={cliente.nome} className="w-16 h-16 rounded-full border border-gray-300 dark:border-gray-700" />
+          <Image src={cliente.avatar} alt={cliente.nome} width={64} height={64} className="w-16 h-16 rounded-full border border-gray-300 dark:border-gray-700" />
           <div className="flex-1">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{cliente.nome}</h2>
             <div className="text-sm text-gray-500 dark:text-gray-300">{cliente.empresa}</div>

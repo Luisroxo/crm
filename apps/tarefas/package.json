@@ -6,32 +6,34 @@
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch",
-  "build": "nest build",
+    "build": "nest build",
     "test": "jest --config jest.config.js"
   },
   "dependencies": {
+    "@crm/auth": "workspace:*",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^11.2.0",
+    "@prisma/client": "6.16.2",
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "nest-winston": "^1.10.2",
+    "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0"
-  ,
-    "@prisma/client": "6.16.2"
   },
   "devDependencies": {
-    "prisma": "6.16.2",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/express-rate-limit": "^6.0.2",
     "@types/helmet": "^4.0.0",
-  "@types/jest": "^30.0.0",
-  "jest": "^30.1.3",
-  "supertest": "^6.3.4",
-  "ts-jest": "^29.4.2",
-  "@types/node": "^20.3.1",
-  "typescript": "^5.0.0"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.3.1",
+    "jest": "^30.1.3",
+    "prisma": "6.16.2",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.4.2",
+    "typescript": "^5.0.0"
   }
 }

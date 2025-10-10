@@ -1,123 +1,89 @@
+version: '3.9'
+services:
   postgres:
     image: postgres:15
-    restart: unless-stopped
+    restart: always
     environment:
-      POSTGRES_USER: crm
-      POSTGRES_PASSWORD: crm123
-      POSTGRES_DB: crm
+      POSTGRES_USER: crm_user
+      POSTGRES_PASSWORD: crm_pass
+      POSTGRES_DB: crm_db
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  mongodb:
-    image: mongo:6
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodata:/data/db
-
   redis:
     image: redis:7
-    restart: unless-stopped
+    restart: always
     ports:
-      - "6379:6379"
-    volumes:
-      - redisdata:/data
-version: '3.8'
-services:
-  vendas:
+      - '6379:6379'
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+  crm:
     build:
-      context: ./apps/vendas
-    ports:
-      - "3002:3002"
+      context: .
+      dockerfile: apps/crm/Dockerfile
     env_file:
-      - ./apps/vendas/.env
-    restart: unless-stopped
+      - ./apps/crm/.env.local
+    ports:
+      - '3001:3001'
     depends_on:
       - postgres
-
-
-  empresas:
-    build:
-      context: ./apps/empresas
-    ports:
-      - "3003:3003"
-    env_file:
-      - ./apps/empresas/.env
-    restart: unless-stopped
-    depends_on:
-      - postgres
-
-
-  comunicacao:
-    build:
-      context: ./apps/comunicacao
-    ports:
-      - "3004:3004"
-    env_file:
-      - ./apps/comunicacao/.env
-    restart: unless-stopped
-    depends_on:
-      - mongodb
-
-
-  tarefas:
-    build:
-      context: ./apps/tarefas
-    ports:
-      - "3005:3005"
-    env_file:
-      - ./apps/tarefas/.env
-    restart: unless-stopped
-    depends_on:
-      - postgres
-
-
-  automacao:
-    build:
-      context: ./apps/automacao
-    ports:
-      - "3006:3006"
-    env_file:
-      - ./apps/automacao/.env
-    restart: unless-stopped
-    depends_on:
       - redis
-
-  clientes:
-    build:
-      context: ./apps/clientes
-    ports:
-      - "3002:3002"
-    env_file:
-      - ./apps/clientes/.env
+      - rabbitmq
     restart: unless-stopped
+
+  bpms:
+    build:
+      context: .
+      dockerfile: apps/bpms/Dockerfile
+    env_file:
+      - ./apps/bpms/.env.local
+    ports:
+      - '3002:3002'
     depends_on:
       - postgres
+      - redis
+      - rabbitmq
+    restart: unless-stopped
+
+  automation:
+    build:
+      context: .
+      dockerfile: apps/automation/Dockerfile
+    env_file:
+      - ./apps/automation/.env.local
+    ports:
+      - '3003:3003'
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    env_file:
+      - ./apps/web/.env.local
+    ports:
+      - '3000:3000'
+    depends_on:
+      - crm
+      - bpms
+      - automation
+    restart: unless-stopped
+
 
 volumes:
   pgdata:
   mongodata:
   redisdata:
-
-  auth:
-    build:
-      context: ./apps/auth
-    ports:
-      - "3001:3001"
-    env_file:
-      - ./apps/auth/.env
-    restart: unless-stopped
-
-
-  gateway:
-    build:
-      context: ./apps/gateway
-    ports:
-      - "3000:3000"
-    env_file:
-      - ./apps/gateway/.env
-    restart: unless-stopped
 

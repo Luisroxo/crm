@@ -1,14 +1,17 @@
 # Dockerfile para microserviço NestJS (empresas)
 FROM node:20-alpine AS builder
-WORKDIR /app
-COPY ../../.. .
+WORKDIR /repo
+COPY . .
 RUN npm install -g pnpm
 RUN pnpm install
-RUN pnpm --filter empresas... build
+RUN pnpm install --filter ./apps/empresas...
+WORKDIR /repo/apps/empresas
+RUN pnpm exec prisma generate --schema=prisma/schema.prisma
+RUN pnpm build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-COPY --from=builder /app/apps/empresas/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-EXPOSE 3006
+COPY --from=builder /repo/apps/empresas/dist ./dist
+COPY --from=builder /repo/node_modules ./node_modules
+EXPOSE 3000
 CMD ["node", "dist/main.js"]

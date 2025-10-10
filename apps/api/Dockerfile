@@ -5,7 +5,9 @@ COPY ../../.. .
 RUN npm install -g pnpm && npm install -g @nestjs/cli
 RUN pnpm install
 WORKDIR /app/apps/api
-RUN pnpm --filter api... build
+RUN pnpm exec prisma generate --schema=prisma/schema.prisma
+RUN pnpm build
+RUN ls -l /app/apps/api
 
 FROM node:20-alpine AS runner
 WORKDIR /app

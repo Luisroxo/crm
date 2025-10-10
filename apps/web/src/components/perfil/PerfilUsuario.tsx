@@ -1,4 +1,6 @@
+"use client";
 import React, { useState } from 'react';
+import Image from "next/image";
 
 export default function PerfilUsuario() {
   // Mock de dados do usuário
@@ -65,9 +67,11 @@ export default function PerfilUsuario() {
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-8 mt-8">
       <div className="flex items-center gap-6 mb-6">
-        <img
+        <Image
           src={usuario.avatar}
           alt="Avatar"
+          width={80}
+          height={80}
           className="w-20 h-20 rounded-full border-2 border-blue-500"
         />
         <div>

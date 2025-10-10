@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from '@crm/auth';
 import { EmpresasController } from './empresas.controller';
 import { EmpresasService } from './empresas.service';
 import { MensagensController } from './mensagens.controller';
@@ -27,7 +28,7 @@ import { ClientesService } from './clientes.service';
  * Aqui são registrados controllers, providers e imports necessários.
  */
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [
     EmpresasController,
     MensagensController,

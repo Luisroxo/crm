@@ -10,7 +10,8 @@ RUN npm install -g pnpm && npm install -g @nestjs/cli
 RUN pnpm install
 # Build apenas do serviço clientes
 WORKDIR /app/apps/clientes
-RUN pnpm --filter clientes... build
+RUN pnpm build
+RUN ls -l /app/apps/clientes
 
 FROM node:20-alpine AS runner
 WORKDIR /app

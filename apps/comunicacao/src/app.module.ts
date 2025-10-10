@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from '@crm/auth';
 import { ComunicacaoController } from './comunicacao.controller';
 import { ComunicacaoService } from './comunicacao.service';
 
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [ComunicacaoController],
   providers: [ComunicacaoService],
 })

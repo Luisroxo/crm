@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 
 const fluxosMock = [
@@ -16,7 +17,7 @@ const fluxosMock = [
 ];
 
 export default function AutomacaoPage() {
-  const [fluxos, setFluxos] = useState(fluxosMock);
+  const [fluxos] = useState(fluxosMock);
   const [fluxoSelecionado, setFluxoSelecionado] = useState<typeof fluxosMock[0] | null>(null);
 
   return (
