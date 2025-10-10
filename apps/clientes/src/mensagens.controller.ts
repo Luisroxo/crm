@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { MensagensService } from './mensagens.service';
+import { MensagensService } from './services/mensagens.service';
 import { CreateMensagemDto } from './dto/create-mensagem.dto';
 import { UpdateMensagemDto } from './dto/update-mensagem.dto';
 

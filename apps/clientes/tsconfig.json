@@ -1,14 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-  "outDir": "dist",
-  "rootDir": "../../",
+    "outDir": "dist",
+    "rootDir": "src",
     "module": "commonjs",
-  "types": ["node", "jest"],
-  "paths": {
-    "@crm/auth": ["../../libs/auth/dist"]
-  }
+    "types": ["node", "jest"]
   },
-  "include": ["**/*.ts", "../../libs/*/src/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

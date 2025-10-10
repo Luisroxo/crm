@@ -10,13 +10,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 /**
  * Função principal que inicializa a aplicação NestJS.
- * O serviço de comunicação será iniciado na porta definida em PORT ou 3004.
+ * O serviço de clientes será iniciado na porta definida em PORT ou 3002.
  */
 async function bootstrap() {
-  const requiredEnvs = ['JWT_SECRET', 'DATABASE_URL', 'PORT'];
-  const missing = requiredEnvs.filter((v) => !process.env[v]);
-  if (missing.length > 0) {
-    Logger.error(`FATAL: Variáveis obrigatórias não definidas: ${missing.join(', ')}`);
+  if (!process.env.JWT_SECRET) {
+    Logger.error('FATAL: JWT_SECRET não definido nas variáveis de ambiente.');
     process.exit(1);
   }
   const app = await NestFactory.create(AppModule, {
@@ -40,7 +38,7 @@ async function bootstrap() {
   app.use(helmet());
 
   const config = new DocumentBuilder()
-    .setTitle('API Comunicação - visao360-plus CRM')
+    .setTitle('API Clientes - visao360-plus CRM')
     .setDescription('Documentação automática dos endpoints REST')
     .setVersion('1.0')
     .addBearerAuth()
@@ -48,6 +46,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
-  await app.listen(process.env.PORT || 3004);
+  await app.listen(process.env.PORT || 3002);
 }
 bootstrap();

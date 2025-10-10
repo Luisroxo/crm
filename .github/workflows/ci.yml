@@ -1,7 +1,65 @@
+# Exemplo de job de deploy automatizado (ajuste conforme ambiente alvo)
+#deploy-staging:
+#  name: Deploy Staging
+#  runs-on: ubuntu-latest
+#  needs: [push-api, push-auth, push-automacao, push-clientes, push-comunicacao, push-empresas, push-gateway, push-tarefas, push-usuarios, push-vendas]
+#  steps:
+#    - name: Deploy via SSH/Docker Compose
+#      uses: appleboy/ssh-action@v1.0.0
+#      with:
+#        host: ${{ secrets.STAGING_HOST }}
+#        username: ${{ secrets.STAGING_USER }}
+#        key: ${{ secrets.STAGING_SSH_KEY }}
+#        script: |
+#          cd /caminho/do/projeto
+#          docker compose pull && docker compose up -d
+name: CI/CD Monorepo
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  lint:
+    name: Lint monorepo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+
+  build-monorepo:
+    name: Build monorepo
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build all apps
+        run: pnpm build
+
   push-api:
     name: Push Docker image - api
     runs-on: ubuntu-latest
-    needs: build-api
+  needs: [build-monorepo, build-api]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -18,7 +76,7 @@
   push-auth:
     name: Push Docker image - auth
     runs-on: ubuntu-latest
-    needs: build-auth
+  needs: [build-monorepo, build-auth]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -35,7 +93,7 @@
   push-automacao:
     name: Push Docker image - automacao
     runs-on: ubuntu-latest
-    needs: build-automacao
+  needs: [build-monorepo, build-automacao]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +110,7 @@
   push-clientes:
     name: Push Docker image - clientes
     runs-on: ubuntu-latest
-    needs: build-clientes
+  needs: [build-monorepo, build-clientes]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -69,7 +127,7 @@
   push-comunicacao:
     name: Push Docker image - comunicacao
     runs-on: ubuntu-latest
-    needs: build-comunicacao
+  needs: [build-monorepo, build-comunicacao]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -86,7 +144,7 @@
   push-empresas:
     name: Push Docker image - empresas
     runs-on: ubuntu-latest
-    needs: build-empresas
+  needs: [build-monorepo, build-empresas]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -103,7 +161,7 @@
   push-gateway:
     name: Push Docker image - gateway
     runs-on: ubuntu-latest
-    needs: build-gateway
+  needs: [build-monorepo, build-gateway]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -120,7 +178,7 @@
   push-tarefas:
     name: Push Docker image - tarefas
     runs-on: ubuntu-latest
-    needs: build-tarefas
+  needs: [build-monorepo, build-tarefas]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -137,7 +195,7 @@
   push-usuarios:
     name: Push Docker image - usuarios
     runs-on: ubuntu-latest
-    needs: build-usuarios
+  needs: [build-monorepo, build-usuarios]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
@@ -154,7 +212,7 @@
   push-vendas:
     name: Push Docker image - vendas
     runs-on: ubuntu-latest
-    needs: build-vendas
+  needs: [build-monorepo, build-vendas]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4

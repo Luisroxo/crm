@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMensagemDto } from './dto/create-mensagem.dto';
-import { UpdateMensagemDto } from './dto/update-mensagem.dto';
-import { Canal } from './dto/create-mensagem.dto';
+import { CreateMensagemDto } from '../dto/create-mensagem.dto';
+import { UpdateMensagemDto } from '../dto/update-mensagem.dto';
+import { Canal } from '../dto/create-mensagem.dto';
 
 interface Mensagem {
   id: string;

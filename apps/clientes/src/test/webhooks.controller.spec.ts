@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { WebhooksController } from './webhooks.controller';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { WebhooksController } from '../webhooks.controller';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 describe('WebhooksController (e2e)', () => {
   let app: INestApplication;

@@ -1,5 +1,5 @@
 import { Controller, Post, Get, Delete, Body, Param, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 // Simulação de armazenamento em memória para webhooks
 const webhooks: { id: string; url: string; eventos: string[] }[] = [];

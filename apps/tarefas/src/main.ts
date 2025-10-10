@@ -1,3 +1,4 @@
+import './otel-bootstrap';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';

@@ -12,9 +12,9 @@
 - Autenticação JWT e RBAC centralizada (todos os serviços NestJS)
 - Documentar endpoints REST (Swagger/OpenAPI) em todos os serviços backend
 - **Revisão e padronização dos testes e2e** (mock dos guards JwtAuthGuard/RolesGuard aplicado em todos os controllers protegidos)
+- Padronização global de tratamento de erros e logs (Winston, filtro de exceção compartilhado via @crm/core)
 
 ## Em andamento / Prioridades
-- [ ] Padronizar tratamento de erros e logs _(prioridade: ALTA)_
 - [ ] Automatizar deploy (CI/CD) _(prioridade: ALTA)_
 - [ ] Adicionar monitoramento e observabilidade _(prioridade: MÉDIA)_
 - [ ] Evoluir integrações entre microserviços _(prioridade: MÉDIA)_
@@ -26,7 +26,6 @@
 - Pronto para avançar para logs, CI/CD, observabilidade e integrações.
 
 ## Tarefas em aberto (detalhado)
-- Padronizar tratamento de erros e logs (Winston, filtros de exceção, logs estruturados)
 - Automatizar deploy (CI/CD) com pipelines (GitHub Actions, Docker, cloud)
 - Adicionar monitoramento e observabilidade (OpenTelemetry, Prometheus, Grafana)
 - Evoluir integrações entre microserviços (eventos, filas, RabbitMQ)
@@ -188,6 +187,61 @@
 - Mobile app (React Native) com foco em CRM e tarefas do BPMS
 - Assistente IA (Oráculo): resumo de status de clientes, follow-ups e próximos passos
 - Plug-in WhatsApp / Telegram / e-mail nativo: automatizar comunicações
+
+---
+
+## Observabilidade e Métricas Prometheus
+
+Todos os serviços backend expõem métricas Prometheus no endpoint `/metrics`.
+
+### Como acessar
+- Suba o serviço desejado (ex: `pnpm --filter clientes start:dev`)
+- Acesse: `http://localhost:<porta>/metrics`
+  - Exemplo para clientes: `http://localhost:3002/metrics`
+  - Exemplo para comunicacao: `http://localhost:3004/metrics`
+  - Exemplo para empresas: `http://localhost:3006/metrics`
+  - Exemplo para tarefas: `http://localhost:3005/metrics`
+
+A resposta será no formato Prometheus, pronta para scrape.
+
+### Exemplo de resposta
+```
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total 0.12
+# HELP http_server_requests_seconds HTTP request duration in seconds
+# TYPE http_server_requests_seconds histogram
+http_server_requests_seconds_bucket{le="0.005",method="GET",path="/metrics",status="200"} 1
+...
+```
+
+### Configuração Prometheus (exemplo)
+Adicione no seu `prometheus.yml`:
+```yaml
+scrape_configs:
+  - job_name: 'crm-clientes'
+    static_configs:
+      - targets: ['host.docker.internal:3002']
+  - job_name: 'crm-comunicacao'
+    static_configs:
+      - targets: ['host.docker.internal:3004']
+  - job_name: 'crm-empresas'
+    static_configs:
+      - targets: ['host.docker.internal:3006']
+  - job_name: 'crm-tarefas'
+    static_configs:
+      - targets: ['host.docker.internal:3005']
+```
+> Use `host.docker.internal` se o Prometheus estiver rodando em container e os serviços localmente.
+
+### Dashboards Grafana
+- Importe dashboards Prometheus padrão ou crie painéis customizados para visualizar métricas de cada serviço.
+- Recomenda-se monitorar: uso de CPU, memória, requisições HTTP, erros 5xx, latência.
+
+### Referências
+- [OpenTelemetry Prometheus Exporter](https://opentelemetry.io/docs/instrumentation/js/exporters/#prometheus)
+- [Prometheus Getting Started](https://prometheus.io/docs/prometheus/latest/getting_started/)
+- [Grafana Getting Started](https://grafana.com/docs/grafana/latest/getting-started/)
 
 ---
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTarefaDto, StatusTarefa } from './dto/create-tarefa.dto';
-import { UpdateTarefaDto } from './dto/update-tarefa.dto';
+import { CreateTarefaDto, StatusTarefa } from '../dto/create-tarefa.dto';
+import { UpdateTarefaDto } from '../dto/update-tarefa.dto';
 
 interface Tarefa {
   id: string;

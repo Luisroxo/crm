@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { CreateIaSuggestionDto } from './dto/create-ia-suggestion.dto';
-import { UpdateIaSuggestionDto } from './dto/update-ia-suggestion.dto';
+import { CreateIaSuggestionDto } from '../dto/create-ia-suggestion.dto';
+import { UpdateIaSuggestionDto } from '../dto/update-ia-suggestion.dto';
 
 @Injectable()
 export class IaSuggestionsService {
