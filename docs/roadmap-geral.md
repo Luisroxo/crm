@@ -1,6 +1,7 @@
 # Roadmap Técnico – visao360-plus CRM
 
 ## Concluído
+## Concluído
 - Estrutura monorepo padronizada (pnpm + Turborepo)
 - Build Docker funcional para todos os serviços (NestJS)
 - Frontend Next.js 14 buildando sem erros
@@ -14,9 +15,18 @@
 - **Revisão e padronização dos testes e2e** (mock dos guards JwtAuthGuard/RolesGuard aplicado em todos os controllers protegidos)
 - Padronização global de tratamento de erros e logs (Winston, filtro de exceção compartilhado via @crm/core)
 
+### Entregas recentes (2025)
+- Correção de todos os imports relativos no AppModule do clientes para garantir build e testes funcionais
+- Restauração dos arquivos de domínio de empresas (`empresas.controller.ts`, `empresas.service.ts`) no backend
+- Criação dos DTOs mínimos para Empresa (`create-empresa.dto.ts`, `update-empresa.dto.ts`)
+- Ajuste e remoção de arquivos de teste vazios para evitar falhas no Jest
+- Diagnóstico e padronização da estrutura de pastas do backend para evitar conflitos com frontend
+- Diagnóstico e orientação sobre problemas de build/teste causados por ausência de arquivos ou duplicidade de estrutura
+- Manutenção do padrão de mock de guards em todos os testes e2e
+
 ## Em andamento / Prioridades
-- [ ] Automatizar deploy (CI/CD) _(prioridade: ALTA)_
-- [ ] Adicionar monitoramento e observabilidade _(prioridade: MÉDIA)_
+- [x] Automatizar deploy (CI/CD) _(prioridade: ALTA)_
+- [x] Adicionar monitoramento e observabilidade _(prioridade: MÉDIA)_
 - [ ] Evoluir integrações entre microserviços _(prioridade: MÉDIA)_
 - [ ] Implementar scripts de seed e fixtures _(prioridade: MÉDIA)_
 - [ ] Revisar e atualizar documentação técnica _(prioridade: MÉDIA)_
@@ -54,11 +64,11 @@
        - Node apps
 
 2. **Controle de versão e CI/CD**
-    - [ ] Configurar GitHub Actions com:
+    - [x] Configurar GitHub Actions com:
        - Build + Lint + Test em cada push
        - Deploy em branches (staging, production)
     - [x] Configurar `.prettierrc`, `.eslintrc` globais
-    - [ ] Configurar commitlint, husky
+    - [x] Configurar commitlint, husky
 
 ---
 
@@ -88,17 +98,17 @@
 🎯 **Objetivo:** Gerenciar clientes, leads e oportunidades.
 
 1. **Modelagem**
-   - Prisma models: User, Company, Contact, Deal, Pipeline, Task
-   - Relacionamentos e seeds iniciais
-   - APIs REST/GraphQL: GET /contacts, POST /deals, etc.
+   - [x] Prisma models: User, Company, Contact, Deal, Pipeline, Task
+   - [x] Relacionamentos e seeds iniciais
+   - [x] APIs REST: GET /contacts, POST /deals, etc.
 
 2. **Integrações**
-   - Envio de e-mails automáticos (Nodemailer)
-   - Webhooks para automação (ex: “lead convertido → iniciar fluxo BPMS”)
+   - [ ] Envio de e-mails automáticos (Nodemailer)
+   - [ ] Webhooks para automação (ex: “lead convertido → iniciar fluxo BPMS”)
 
 3. **Conexão CRM ↔ BPMS**
-   - Criar fila de eventos (lead.converted)
-   - BPMS consome o evento e instancia fluxo “Implantação do cliente”
+   - [ ] Criar fila de eventos (lead.converted)
+   - [ ] BPMS consome o evento e instancia fluxo “Implantação do cliente”
 
 ---
 
@@ -190,17 +200,38 @@
 
 ---
 
+
+
 ## Observabilidade e Métricas Prometheus
 
-Todos os serviços backend expõem métricas Prometheus no endpoint `/metrics`.
+
+### Status atual por serviço
+
+- **Já expõem métricas Prometheus (OpenTelemetry):**
+  - clientes
+  - api
+  - comunicacao
+  - empresas
+  - tarefas
+
+**Não foi encontrada exportação de métricas nos serviços:**
+
+- automacao
+- gateway
+- usuarios
+- vendas
+
+Todos os serviços backend devem expor métricas Prometheus via OpenTelemetry, preferencialmente em **portas padronizadas e documentadas**.
+
+> **Importante:** Caso outros serviços além do `clientes` também exponham métricas, utilize portas dedicadas (ex: 9464, 9465, 9466...) e registre cada endpoint nesta documentação.
 
 ### Como acessar
 - Suba o serviço desejado (ex: `pnpm --filter clientes start:dev`)
-- Acesse: `http://localhost:<porta>/metrics`
-  - Exemplo para clientes: `http://localhost:3002/metrics`
-  - Exemplo para comunicacao: `http://localhost:3004/metrics`
-  - Exemplo para empresas: `http://localhost:3006/metrics`
-  - Exemplo para tarefas: `http://localhost:3005/metrics`
+- Acesse: `http://localhost:9464/metrics` para visualizar as métricas Prometheus exportadas pelo serviço `clientes`.
+   - Exemplo para clientes: `http://localhost:9464/metrics`
+   - Exemplo para comunicacao: `http://localhost:9465/metrics` (ajustar se/quando implementado)
+   - Exemplo para empresas: `http://localhost:9466/metrics` (ajustar se/quando implementado)
+   - Exemplo para tarefas: `http://localhost:9467/metrics` (ajustar se/quando implementado)
 
 A resposta será no formato Prometheus, pronta para scrape.
 
