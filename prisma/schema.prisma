@@ -74,6 +74,7 @@ model User {
   status    UserStatus @default(ATIVO)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deals     Deal[]   @relation("UserDeals")
 
   @@map("users")
 }
@@ -110,6 +111,7 @@ model Cliente {
   iaSuggestions IaSuggestion[] @relation("ClienteIaSuggestions")
   iaAutoReplies IaAutoReply[] @relation("ClienteIaAutoReplies")
   iaProfileCompletions IaProfileCompletion[] @relation("ClienteIaProfileCompletions")
+  deals     Deal[]
 
   @@map("clientes")
 }
@@ -136,6 +138,7 @@ model Empresa {
   iaSuggestions IaSuggestion[] @relation("EmpresaIaSuggestions")
   iaAutoReplies IaAutoReply[] @relation("EmpresaIaAutoReplies")
   iaProfileCompletions IaProfileCompletion[] @relation("EmpresaIaProfileCompletions")
+  deals     Deal[]
 
   @@map("empresas")
 }
@@ -145,6 +148,7 @@ model Funil {
   nome      String
   criadoEm  DateTime @default(now())
   etapas    Etapa[]
+  deals     Deal[]
 
   @@map("funis")
 }
@@ -158,6 +162,7 @@ model Etapa {
   leads     Lead[]
   movimentacoesOrigem   Movimentacao[] @relation("EtapaOrigem")
   movimentacoesDestino  Movimentacao[] @relation("EtapaDestino")
+  deals     Deal[]
 
   @@map("etapas")
 }
@@ -184,6 +189,7 @@ model Lead {
   iaSuggestions IaSuggestion[] @relation("LeadIaSuggestions")
   iaAutoReplies IaAutoReply[] @relation("LeadIaAutoReplies")
   iaProfileCompletions IaProfileCompletion[] @relation("LeadIaProfileCompletions")
+  deals     Deal[]
 
   @@map("leads")
 }
@@ -323,4 +329,41 @@ enum ProfileCompletionStatus {
   PENDENTE
   ACEITO
   REJEITADO
+}
+
+/// --- CRM: Deal (Negócio/Oportunidade) ---
+model Deal {
+  id           String   @id @default(cuid())
+  titulo       String
+  descricao    String?
+  valor        Float?
+  status       DealStatus @default(ABERTO)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relacionamentos principais
+  funilId      String
+  funil        Funil    @relation(fields: [funilId], references: [id])
+  etapaId      String
+  etapa        Etapa    @relation(fields: [etapaId], references: [id])
+  clienteId    String?
+  cliente      Cliente? @relation(fields: [clienteId], references: [id])
+  empresaId    String?
+  empresa      Empresa? @relation(fields: [empresaId], references: [id])
+  leadId       String?
+  lead         Lead?    @relation(fields: [leadId], references: [id])
+  responsavelId String?
+  responsavel  User?    @relation("UserDeals", fields: [responsavelId], references: [id])
+
+  // Histórico de movimentações (opcional)
+  // movimentacoes Movimentacao[]
+
+  @@map("deals")
+}
+
+enum DealStatus {
+  ABERTO
+  GANHO
+  PERDIDO
+  CANCELADO
 }

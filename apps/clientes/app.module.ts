@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
 import { AuthModule } from '@crm/auth';
 import { EmpresasController } from './empresas.controller';
 import { EmpresasService } from './empresas.service';
@@ -9,6 +11,8 @@ import { TarefasService } from './tarefas.service';
 import { AutomationFlowsController } from './automation-flows.controller';
 import { AutomationFlowsService } from './automation-flows.service';
 import { PrismaService } from './prisma.service';
+import { DealsController } from './deals.controller';
+import { DealsService } from './deals.service';
 import { AutomationTriggersController } from './automation-triggers.controller';
 import { AutomationActionsController } from './automation-actions.controller';
 import { IaSuggestionsController } from './ia-suggestions.controller';
@@ -28,7 +32,18 @@ import { ClientesService } from './clientes.service';
  * Aqui são registrados controllers, providers e imports necessários.
  */
 @Module({
-  imports: [AuthModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env.local',
+      validationSchema: Joi.object({
+        JWT_SECRET: Joi.string().required(),
+        DATABASE_URL: Joi.string().uri().optional(),
+        PORT: Joi.number().default(3002),
+      }),
+    }),
+    AuthModule,
+  ],
   controllers: [
     EmpresasController,
     MensagensController,
@@ -41,7 +56,8 @@ import { ClientesService } from './clientes.service';
     IaProfileCompletionsController,
     WebhooksController,
     AuthController,
-    ClientesController,
+  ClientesController,
+  DealsController,
   ],
   providers: [
     EmpresasService,
@@ -53,7 +69,8 @@ import { ClientesService } from './clientes.service';
     IaAutoRepliesService,
     IaProfileCompletionsService,
     AuthService,
-    ClientesService,
+  ClientesService,
+  DealsService,
   ],
 })
 export class AppModule {}

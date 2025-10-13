@@ -2,7 +2,7 @@ import { NodeSDK } from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
 
-const prometheusPort = process.env.OTEL_PROM_PORT ? Number(process.env.OTEL_PROM_PORT) : 9464;
+const prometheusPort = process.env.OTEL_PROM_PORT ? Number(process.env.OTEL_PROM_PORT) : 9472; // API
 const prometheusEndpoint = process.env.OTEL_PROM_ENDPOINT || '/metrics';
 
 const sdk = new NodeSDK({
@@ -11,7 +11,7 @@ const sdk = new NodeSDK({
     port: prometheusPort,
     endpoint: prometheusEndpoint,
   }),
-  instrumentations: [getNodeAutoInstrumentations()]
+  instrumentations: [getNodeAutoInstrumentations()],
 });
 
 try {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { CreateAutomationFlowDto } from '@/dto/create-automation-flow.dto';
 import { UpdateAutomationFlowDto } from '@/dto/update-automation-flow.dto';
 

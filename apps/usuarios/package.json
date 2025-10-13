@@ -12,11 +12,13 @@
     "build": "pnpm exec nest build"
   },
   "dependencies": {
-    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/jwt": "^11.0.1",
     "@nestjs/passport": "^11.0.5",
     "@prisma/client": "6.16.2",
     "bcrypt": "^6.0.0",
     "helmet": "^7.0.0",
+    "joi": "^18.0.1",
     "nest-winston": "^1.8.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -25,7 +27,7 @@
   "devDependencies": {
     "@nestjs/cli": "^11.0.10",
     "@nestjs/mapped-types": "^2.0.0",
-    "@nestjs/testing": "^10.0.0",
+    "@nestjs/testing": "^11.1.6",
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^4.17.21",
     "@types/jest": "^30.0.0",

@@ -1,4 +1,9 @@
-import './otel-bootstrap';
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+// Carrega variáveis locais antes de executar o bootstrap do OpenTelemetry
+dotenv.config({ path: resolve(__dirname, '../.env.local') });
+// executar o bootstrap após garantir que as envs estejam carregadas
+void require('./otel-bootstrap');
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';

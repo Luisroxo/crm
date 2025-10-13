@@ -1,0 +1,1 @@
+[ARQUIVADO] Roadmap técnico migrado para docs/roadmaps-legacy/ em 10/2025. Consulte roadmap-geral.md para status atual.

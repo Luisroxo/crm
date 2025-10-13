@@ -9,13 +9,15 @@
     "build": "pnpm exec nest build"
   },
   "dependencies": {
+    "@fastify/reply-from": "7.0.0",
+    "@fastify/static": "^8.2.0",
     "@nestjs/axios": "^4.0.1",
-    "@nestjs/common": "^10.0.0",
+    "@nestjs/common": "^11.1.6",
     "@nestjs/config": "^4.0.2",
-    "@nestjs/core": "^10.0.0",
-    "@nestjs/jwt": "^11.0.0",
+    "@nestjs/core": "^11.1.6",
+    "@nestjs/jwt": "^11.0.1",
     "@nestjs/passport": "^11.0.5",
-    "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-express": "^11.1.6",
     "@prisma/client": "6.16.2",
     "@types/node": "^24.5.2",
     "express": "^5.1.0",
@@ -25,9 +27,9 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
-    "@nestjs/schematics": "^10.0.0",
-    "@nestjs/testing": "^10.0.0",
+    "@nestjs/cli": "^11.0.10",
+    "@nestjs/schematics": "^11.0.9",
+    "@nestjs/testing": "^11.1.6",
     "prisma": "6.16.2",
     "typescript": "^5.0.0"
   }

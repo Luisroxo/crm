@@ -1,3 +1,4 @@
+# [ARQUIVADO] Este roadmap foi migrado para docs/roadmaps-legacy/ em 10/2025. Consulte roadmap-geral.md para status atual.
 # Regras de Execução Automática
 
 1. **Execução automática:** Todas as tarefas e subtarefas devem ser executadas imediatamente, sem pedir autorização prévia.

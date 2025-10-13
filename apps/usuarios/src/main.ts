@@ -1,3 +1,9 @@
+import * as dotenv from 'dotenv';
+import { resolve } from 'path';
+// Carrega variáveis locais antes de executar o bootstrap do OpenTelemetry
+dotenv.config({ path: resolve(__dirname, '../.env.local') });
+// executar o bootstrap após garantir que as envs estejam carregadas
+void require('../src/otel-bootstrap');
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app.module';
 import { WinstonModule } from 'nest-winston';
@@ -32,6 +38,11 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
   app.use(helmet());
-  await app.listen(process.env.PORT || 3002);
+  const port = Number(process.env.PORT) || 3002;
+  await app.listen(port, '0.0.0.0');
+  // Log explícito para garantir que sabemos onde o serviço está escutando
+  // (evita ambiguidades entre IPv4/IPv6 em localhost)
+  // eslint-disable-next-line no-console
+  console.log(`Usuarios listening on http://0.0.0.0:${port}`);
 }
 bootstrap();

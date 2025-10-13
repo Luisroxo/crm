@@ -20,7 +20,7 @@ export class UsuariosService {
 
   async findAll() {
     const usuarios = await this.prisma.user.findMany();
-    return usuarios.map(u => this.omitSenha(u));
+  return usuarios.map((u: User) => this.omitSenha(u));
   }
 
   async findOne(id: string) {

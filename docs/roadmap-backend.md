@@ -1,3 +1,4 @@
+# [ARQUIVADO] Este roadmap foi migrado para docs/roadmaps-legacy/ em 10/2025. Consulte roadmap-geral.md para status atual.
 
 # Roadmap Técnico — Backend CRM (Isolamento Total + Docker)
 

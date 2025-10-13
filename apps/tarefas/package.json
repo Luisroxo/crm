@@ -10,11 +10,11 @@
     "test": "jest --config jest.config.js"
   },
   "dependencies": {
-  "@crm/auth": "workspace:*",
-  "@crm/core": "workspace:*",
-    "@nestjs/common": "^10.0.0",
-    "@nestjs/core": "^10.0.0",
-    "@nestjs/platform-express": "^10.0.0",
+    "@crm/auth": "workspace:*",
+    "@crm/core": "workspace:*",
+    "@nestjs/common": "^11.1.6",
+    "@nestjs/core": "^11.1.6",
+    "@nestjs/platform-express": "^11.1.6",
     "@nestjs/swagger": "^11.2.0",
     "@prisma/client": "6.16.2",
     "express-rate-limit": "^8.1.0",
@@ -24,9 +24,9 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
-    "@nestjs/schematics": "^10.0.0",
-    "@nestjs/testing": "^10.0.0",
+    "@nestjs/cli": "^11.0.10",
+    "@nestjs/schematics": "^11.0.9",
+    "@nestjs/testing": "^11.1.6",
     "@types/express-rate-limit": "^6.0.2",
     "@types/helmet": "^4.0.0",
     "@types/jest": "^30.0.0",

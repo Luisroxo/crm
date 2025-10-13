@@ -1,3 +1,44 @@
+# [ARQUIVADO] Este roadmap foi migrado para docs/roadmaps-legacy/ em 10/2025. Consulte roadmap-geral.md para status atual.
+
+# Status Geral de Migração dos Apps (atualizado em 10/10/2025)
+| App           | Status         | Observações principais |
+|---------------|---------------|-----------------------|
+| api           | ✅ Migrado     | Estrutura src/, build validado |
+| auth          | ✅ Migrado     | Estrutura src/, build validado, integra pacote compartilhado |
+| automacao     | ✅ Migrado     | Estrutura src/, build/testes validados |
+| automation    | ⏭️ Placeholder | Não possui código real, ignorado |
+| bpms          | ⏭️ Placeholder | Não possui código real, ignorado |
+| clientes      | ✅ Migrado     | Estrutura src/, build/testes validados |
+| comunicacao   | ✅ Migrado     | Estrutura src/, build validado, integra guards/decorators do pacote @auth |
+| crm           | ⏭️ Placeholder | Não possui código real, ignorado |
+| empresas      | ✅ Migrado     | Estrutura src/, integra pacote @auth, build validado |
+| frontend      | ⏭️ Placeholder | Não utilizado, frontend real é o app web |
+| gateway       | ✅ Migrado     | Estrutura src/, build validado |
+| tarefas       | ✅ Migrado     | Estrutura src/, build validado |
+| usuarios      | ✅ Migrado     | Estrutura src/, build/testes validados |
+| vendas        | ✅ Migrado     | Estrutura src/, integra pacote @auth, build validado |
+| web           | ✅ Migrado     | Estrutura src/, Next.js 14, Tailwind, build validado |
+
+# Observação sobre apps Placeholder
+Os apps automation, bpms e crm são placeholders criados para planejamento futuro ou reserva de nome. Não possuem código real, não participam do fluxo de build, deploy ou migração, e podem ser removidos ou substituídos conforme evolução do projeto.
+
+# Roadmap Migração apps/tarefas (atualizado em 10/10/2025)
+
+- [x] Migrar controllers para src/ (feito)
+- [x] Migrar services para src/services/ (não aplicável - serviço já estava em src/)
+- [x] Corrigir todos os imports após migração (feito)
+- [x] Validar build após migração (`pnpm --filter tarefas build` OK)
+- [x] Ajustar tsconfig para rootDir './src' e remover includes de libs (feito)
+- [x] Atualizar documentação interna sobre a nova estrutura (feito)
+- [x] Remover arquivos/pastas obsoletos da raiz após validação final (feito)
+- [x] Refatorar imports para paths absolutos (@/) (feito em 10/10/2025)
+
+## Observações
+- Estrutura src/ alinhada ao padrão do monorepo.
+- Build validado após ajustes de tsconfig e imports.
+- Pronto para expansão e integração com demais serviços.
+
+
 # Roadmap Migração apps/vendas (atualizado em 10/10/2025)
 
 - [x] Migrar controllers para src/ (feito)

@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
 import { EmpresasController } from '@/empresas.controller';
 import { EmpresasService } from '@/empresas.service';
 import { MensagensController } from '@/mensagens.controller';
@@ -29,7 +31,17 @@ import { UsuariosService } from '@/usuarios.service';
  * Aqui são registrados controllers, providers e imports necessários.
  */
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env.local',
+      validationSchema: Joi.object({
+        JWT_SECRET: Joi.string().required(),
+        DATABASE_URL: Joi.string().uri().optional(),
+        PORT: Joi.number().default(3002),
+      }),
+    }),
+  ],
   controllers: [
     AuthController,
     UsuariosController,

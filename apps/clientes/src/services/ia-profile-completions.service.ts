@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '@/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { CreateIaProfileCompletionDto } from '@/dto/create-ia-profile-completion.dto';
 import { UpdateIaProfileCompletionDto } from '@/dto/update-ia-profile-completion.dto';
 

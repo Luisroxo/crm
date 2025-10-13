@@ -2,20 +2,30 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-  "moduleResolution": "node",
+    "moduleResolution": "node",
     "isolatedModules": true,
     "strict": true,
     "baseUrl": ".",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "useDefineForClassFields": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@ui/*": ["packages/ui/*"],
       "@config/*": ["packages/config/*"],
-  "@auth": ["packages/auth/dist/index"],
-  "@auth/*": ["packages/auth/dist/*"],
+      "@auth": ["packages/auth/dist/index"],
+      "@auth/*": ["packages/auth/dist/*"],
       "@crm/auth": ["libs/auth/dist"],
       "@crm/core": ["libs/core/dist"],
+      "@core/database": ["packages/core/database/src"],
+      "@core/database/*": ["packages/core/database/src/*"],
+      "@core/auth": ["packages/core/auth/src"],
+      "@core/auth/*": ["packages/core/auth/src/*"],
+      "@core/utils": ["packages/core/utils/src"],
+      "@core/utils/*": ["packages/core/utils/src/*"],
+      "@core/events": ["packages/core/events/src"],
+      "@core/events/*": ["packages/core/events/src/*"],
       "@/*": [
         "apps/usuarios/src/*"
       ]
