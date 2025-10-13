@@ -31,8 +31,6 @@ Comandos principais
 - `pnpm dev` — executa web e api em paralelo
 - `pnpm -w build` — build dos pacotes/apps
 
-
-
 ## Segurança dos Tokens JWT e APIs
 
 - **IMPORTANTE:**
@@ -55,14 +53,13 @@ Comandos principais
 
 > A documentação foi revisada e está centralizada nos arquivos essenciais acima.
 
-
 ## Build e Deploy
 - Para build de produção:
-	```sh
+	```
 	pnpm -w build
 	```
 - Para subir infraestrutura local:
-	```sh
+	```
 	docker compose -f infra/docker/docker-compose.dev.yml up -d
 	```
 
@@ -91,3 +88,8 @@ Comandos principais
 - apps/api — NestJS
 - prisma/schema.prisma — modelos
 - docs — arquitetura, API, LGPD, roadmap, migração
+- apps/web — Next.js
+- apps/api — NestJS
+- prisma/schema.prisma — modelos
+- docs — arquitetura, ADRs, API, LGPD
+>>>>>>> 660f80d (chore: bootstrap monorepo — Next.js + NestJS + Prisma)
