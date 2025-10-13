@@ -1,0 +1,36 @@
+name: smoke-clientes
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'apps/clientes/**'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Build clientes
+        run: pnpm --filter clientes run build
+      - name: Run smoke (background)
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PORT: 3002
+        run: |
+          node apps/clientes/dist/main.js &
+          for i in {1..60}; do
+            if curl -sS http://127.0.0.1:3002/health; then
+              echo 'health ok' && break
+            fi
+            sleep 1
+          done
+      - name: Validate metrics
+        run: curl -sS http://127.0.0.1:9464/metrics | head -n 5
