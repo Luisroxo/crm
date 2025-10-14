@@ -12,13 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Create always artifact
+        shell: bash
         run: |
           echo "always artifact: $(date)" > always-artifact.txt
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+
+      - name: Setup pnpm (official action)
+        uses: pnpm/action-setup@v2
+        with:
+          version: 'latest'
+
       - name: Install dependencies (consolidated pnpm fallbacks)
         shell: bash
         run: |
@@ -26,15 +35,102 @@ jobs:
           echo '--- node/npm versions ---'
           node -v
           npm -v
+          echo '--- pnpm version (post-setup) ---'
+          if command -v pnpm >/dev/null 2>&1; then pnpm --version || true; else echo 'pnpm not found'; fi
 
-          # Try pnpm already on PATH
           if command -v pnpm >/dev/null 2>&1; then
             echo "pnpm found: $(pnpm --version)"
+            pnpm install --frozen-lockfile 2>&1 | tee pnpm-install.log
           else
-            echo 'pnpm not found: attempting fallbacks (action, npm, corepack, installer)'
-            # Try corepack
-            corepack enable || true
-            corepack prepare pnpm@latest --activate || true
+            echo 'pnpm not found after setup: falling back to npm approach'
+          fi
+
+      - name: npm fallback for clientes
+        run: |
+          if ! command -v pnpm >/dev/null 2>&1; then
+            echo 'pnpm missing: using npm to install and build apps/clientes'
+            cd apps/clientes
+            npm install 2>&1 | tee npm-install-clientes.log || true
+            npm run build 2>&1 | tee clientes-build.log || true
+            cd - || true
+          else
+            echo 'pnpm available, skipping npm fallback'
+          fi
+
+      - name: Build clientes (pnpm if available)
+        run: |
+          if command -v pnpm >/dev/null 2>&1; then
+            echo 'Running pnpm build for clientes'
+            pnpm --filter clientes run build 2>&1 | tee clientes-build.log || true
+          else
+            echo 'pnpm not available; assuming npm fallback already built apps/clientes'
+          fi
+
+      - name: Run smoke (background)
+        env:
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          PORT: 3002
+        run: |
+          mkdir -p apps/clientes/logs || true
+          node apps/clientes/dist/main.js > apps/clientes/logs/smoke.log 2>&1 &
+          for i in {1..60}; do
+            if curl -sS http://127.0.0.1:3002/health; then
+              echo 'health ok' && break
+            fi
+            sleep 1
+          done
+
+      - name: Validate metrics
+        run: curl -sS http://127.0.0.1:9464/metrics | head -n 5
+
+      - name: Collect debug info (always)
+        if: always()
+        run: |
+          echo "--- debug info ---" > debug-info.txt
+          echo "DATE: $(date)" >> debug-info.txt
+          echo "--- env ---" >> debug-info.txt
+          env >> debug-info.txt
+          echo "--- PATH ---" >> debug-info.txt
+          echo $PATH >> debug-info.txt
+          echo "--- which pnpm ---" >> debug-info.txt
+          which pnpm >> debug-info.txt 2>&1 || true
+          echo "--- ls root ---" >> debug-info.txt
+          ls -la >> debug-info.txt
+          echo "--- ls apps/clientes/dist ---" >> debug-info.txt
+          ls -la apps/clientes/dist >> debug-info.txt 2>&1 || true
+          echo "--- tail pnpm-install.log ---" >> debug-info.txt
+          tail -n +1 pnpm-install.log >> debug-info.txt 2>&1 || true
+          echo "--- tail npm-install-clientes.log ---" >> debug-info.txt
+          tail -n +1 npm-install-clientes.log >> debug-info.txt 2>&1 || true
+          echo "--- tail clientes-build.log ---" >> debug-info.txt
+          tail -n +1 clientes-build.log >> debug-info.txt 2>&1 || true
+
+      - name: Upload logs artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-clientes-logs
+          if-no-files-found: warn
+          path: |
+            pnpm-install.log
+            npm-install-clientes.log
+            clientes-build.log
+            apps/clientes/logs/smoke.log
+            always-artifact.txt
+            debug-info.txt
+
+      - name: Create smoke-test artifact
+        run: |
+          echo "smoke artifact generated at $(date)" > smoke-test.txt
+
+      - name: Upload smoke-test artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test
+          if-no-files-found: warn
+          path: smoke-test.txt
 name: smoke-clientes
 
 on:
