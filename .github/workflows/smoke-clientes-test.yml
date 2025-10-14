@@ -1,0 +1,28 @@
+name: smoke-clientes-test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create always artifact (test)
+        shell: bash
+        run: |
+          echo "always artifact test: $(date)" > always-artifact-test.txt
+
+      - name: Create smoke-test artifact (test)
+        shell: bash
+        run: |
+          echo "smoke artifact test: $(date)" > smoke-test-test.txt
+
+      - name: Upload artifacts (test)
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-artifacts-test
+          path: |
+            always-artifact-test.txt
+            smoke-test-test.txt
