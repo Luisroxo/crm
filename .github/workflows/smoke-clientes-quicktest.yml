@@ -1,0 +1,19 @@
+name: smoke-clientes-quicktest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  quicktest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create quicktest artifact
+        shell: bash
+        run: |
+          echo "always quicktest artifact: $(date)" > always-artifact-quicktest.txt
+      - name: Upload quicktest artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-clientes-quicktest
+          path: always-artifact-quicktest.txt
