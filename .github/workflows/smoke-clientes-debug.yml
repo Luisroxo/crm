@@ -1,0 +1,19 @@
+name: smoke-clientes-debug
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create debug artifact
+        shell: bash
+        run: |
+          echo "always debug artifact: $(date)" > always-artifact-debug.txt
+      - name: Upload debug artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-clientes-debug
+          path: always-artifact-debug.txt
