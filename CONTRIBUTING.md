@@ -1,26 +1,30 @@
 # Como Contribuir
 
-## Fluxo de Trabalho
+## Fluxo de Trabalho (Solo Development)
 
-1. Fork este repositório e clone no seu ambiente.
-2. Crie uma branch a partir de `develop`:
+1. Trabalhe diretamente na branch `main`
+2. Crie branches para features experimentais ou grandes refatorações:
    - Para features: `feature/nome-funcionalidade`
    - Para bugs: `fix/nome-do-bug`
-3. Realize commits pequenos e descritivos.
-4. Garanta que todos os testes estão passando.
-5. Abra um Pull Request para a branch `develop`:
-   - Descreva claramente o que foi feito.
-   - Relacione issues se aplicável.
+3. Realize commits pequenos e descritivos
+4. Garanta que testes estão passando antes de fazer push
+5. Merge direto em `main` após validação local
 
 ## Boas Práticas
 
-- Use mensagens de commit claras.
-- Mantenha código limpo e documentado.
-- Sempre rode `lint` e `test` antes de abrir PR.
+- Use mensagens de commit claras seguindo Conventional Commits
+- Mantenha código limpo e documentado
+- Execute `lint` e `test` antes de cada commit
+- Use branches apenas para desenvolvimento de features complexas
 
-## Checklist para Pull Request
+## Conventional Commits
 
-- [ ] PR está associado a uma issue (se aplicável)
-- [ ] Todos os testes passaram
-- [ ] Lint executado sem erros
-- [ ] Atualizações na documentação realizadas (se preciso)
+Formato: `tipo(escopo): descrição`
+
+Tipos:
+- `feat`: Nova funcionalidade
+- `fix`: Correção de bug
+- `docs`: Documentação
+- `refactor`: Refatoração
+- `test`: Testes
+- `chore`: Manutenção
